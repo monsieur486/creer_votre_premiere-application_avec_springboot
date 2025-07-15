@@ -2,9 +2,11 @@ package com.mr486.safetynet.service;
 
 import com.mr486.safetynet.dto.FireStationDto;
 import com.mr486.safetynet.exception.EntityAlreadyExistsException;
+import com.mr486.safetynet.exception.EntityNotFoundException;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.repository.FireStationRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FireStationService {
 
   private final FireStationRepository fireStationRepository;
@@ -25,6 +28,7 @@ public class FireStationService {
    * @return a list of all fire stations.
    */
   public List<FireStation> findAll() {
+    log.info("Retrieving all fire stations");
     return fireStationRepository.findAll();
   }
 
@@ -35,8 +39,13 @@ public class FireStationService {
    * @return an Optional containing the FireStation if found, or empty if not found.
    */
   public FireStation findByAddress(String address){
+    if( !exists(address)) {
+      log.error("Fire station not found at address: {}", address);
+      throw fireStationNotFoundException(address);
+    }
+    log.info("Finding fire station at address: {}", address);
     return fireStationRepository.findByAddress(address)
-        .orElseThrow(() -> new EntityAlreadyExistsException("Fire station not found at address: " + address));
+        .orElseThrow(() -> fireStationNotFoundException(address));
   }
 
   /**
@@ -47,8 +56,10 @@ public class FireStationService {
    */
   public FireStation save(FireStation fireStation){
     if (exists(fireStation.getAddress())) {
-      throw new EntityAlreadyExistsException("Fire station already exists at address: " + fireStation.getAddress());
+      log.error("Attempt to save a duplicate fire station at address: {}", fireStation.getAddress());
+      throw fireStationDuplicateException(fireStation.getAddress());
     }
+    log.info("Saving fire station at address: {}", fireStation.getAddress());
     return fireStationRepository.save(fireStation);
   }
 
@@ -59,8 +70,10 @@ public class FireStationService {
    */
   public void delete(String address){
     if (!exists(address)) {
-      throw new EntityAlreadyExistsException("Fire station not found at address: " + address);
+      log.error("Attempt to delete a non-existing fire station at address: {}", address);
+      throw fireStationNotFoundException(address);
     }
+    log.info("Deleting fire station at address: {}", address);
     fireStationRepository.delete(address);
   }
 
@@ -71,6 +84,7 @@ public class FireStationService {
    * @return a list of FireStation entities with the specified station number.
    */
   public List<FireStation> findByStationNumber(int stationNumber){
+    log.info("Finding fire stations with station number: {}", stationNumber);
     return fireStationRepository.findByStationNumber(stationNumber);
   }
 
@@ -84,13 +98,17 @@ public class FireStationService {
    */
   public FireStation update(String address, FireStationDto fireStationDto){
     if( !exists(address)) {
-      throw new EntityAlreadyExistsException("Fire station not found at address: " + address);
+      log.error("Attempt to update a non-existing fire station at address: {}", address);
+      throw fireStationNotFoundException(address);
     }
     FireStation updatedFireStation = new FireStation(
         address,
         fireStationDto.getStation()
     );
+    log.info("Updating fire station at address: {}", address);
+    log.debug("Deleting existing fire station at address: {}", address);
     fireStationRepository.delete(address);
+    log.debug("Saving updated fire station at address: {}", address);
     return fireStationRepository.save(updatedFireStation);
   }
 
@@ -102,5 +120,13 @@ public class FireStationService {
    */
   private boolean exists(String address) {
     return fireStationRepository.exists(address);
+  }
+
+  private EntityNotFoundException fireStationNotFoundException(String address) {
+    return new EntityNotFoundException("no fire station at " + address + " exists");
+  }
+
+  private EntityAlreadyExistsException fireStationDuplicateException(String address) {
+    return new EntityAlreadyExistsException("a fire station at " + address + " already exists");
   }
 }
