@@ -1,6 +1,7 @@
 package com.mr486.safetynet.tools;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mr486.safetynet.configuation.AppConfiguation;
 import com.mr486.safetynet.dto.DataBinding;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,18 +26,14 @@ public class JsonDataReader {
   private final ObjectMapper mapper;
 
   /**
-   * The path to the JSON file, injected from application properties.
-   */
-  @Value("${json.file.path}")
-  String dataFilePath;
-
-  /**
    * Loads data from a specified JSON file path and maps it to a DataBinding object.
    *
    * @return a DataBinding object containing the deserialized data
    * @throws RuntimeException if the file is not found or an error occurs while reading the file
    */
   public DataBinding loadData() {
+
+    String dataFilePath = AppConfiguation.JSON_FILE_PATH;
 
     try {
       File file = new File(dataFilePath);
