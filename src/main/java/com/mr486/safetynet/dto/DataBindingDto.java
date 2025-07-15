@@ -5,7 +5,6 @@ import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-public class DataBinding {
+public class DataBindingDto {
 
   /**
    * A list of persons.
@@ -36,7 +35,7 @@ public class DataBinding {
   /**
    * Default constructor that initializes the lists of persons, fire stations, and medical records as empty lists.
    */
-  public DataBinding() {
+  public DataBindingDto() {
     this.persons = new ArrayList<>();
     this.firestations = new ArrayList<>();
     this.medicalrecords = new ArrayList<>();

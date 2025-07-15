@@ -1,15 +1,11 @@
 package com.mr486.safetynet.tools;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mr486.safetynet.dto.DataBinding;
+import com.mr486.safetynet.dto.DataBindingDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.io.File;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -29,21 +25,21 @@ class JsonDataReaderTest {
 
   @Test
   void loadData_shouldReturnDataBinding_whenJsonIsValid() throws Exception {
-    DataBinding mockData = new DataBinding();
+    DataBindingDto mockData = new DataBindingDto();
     String testPath = "src/test/resources/data.json";
 
     File file = new File(testPath);
-    when(objectMapper.readValue(any(File.class), eq(DataBinding.class))).thenReturn(mockData);
+    when(objectMapper.readValue(any(File.class), eq(DataBindingDto.class))).thenReturn(mockData);
 
-    DataBinding result = jsonDataReader.loadData();
+    DataBindingDto result = jsonDataReader.loadData();
 
     assertNotNull(result);
-    verify(objectMapper, times(1)).readValue(any(File.class), eq(DataBinding.class));
+    verify(objectMapper, times(1)).readValue(any(File.class), eq(DataBindingDto.class));
   }
 
   @Test
   void loadData_shouldThrowRuntimeException_whenIOExceptionOccurs() throws Exception {
-    when(objectMapper.readValue(any(File.class), eq(DataBinding.class)))
+    when(objectMapper.readValue(any(File.class), eq(DataBindingDto.class)))
             .thenThrow(new RuntimeException("Simulated read error"));
 
     RuntimeException exception = assertThrows(RuntimeException.class, () -> {
