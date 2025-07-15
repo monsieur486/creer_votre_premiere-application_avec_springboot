@@ -13,6 +13,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Global exception handler for the application.
@@ -35,7 +36,9 @@ public class GlobalExceptionHandler {
     ex.getBindingResult().getFieldErrors().forEach(error ->
             errors.put(error.getField(), error.getDefaultMessage())
     );
-    String errorMessage = errors.toString();
+    String errorMessage = errors.entrySet().stream()
+            .map(e -> e.getKey() + ": " + e.getValue())
+            .collect(Collectors.joining(", "));
     ErrorResponseDto errorResponse = new ErrorResponseDto(
             errorMessage,
             400
