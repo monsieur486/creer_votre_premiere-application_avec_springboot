@@ -43,7 +43,7 @@ class JsonDataReaderTest {
 
     RuntimeException exception = assertThrows(RuntimeException.class, () -> jsonDataReader.loadData());
 
-    assertEquals("Error reading json file:test.json message: File not found", exception.getMessage());
+    assertEquals("❌ Error reading json file:test.json message: File not found", exception.getMessage());
   }
 
   @Test
@@ -52,6 +52,6 @@ class JsonDataReaderTest {
 
     RuntimeException exception = assertThrows(RuntimeException.class, () -> jsonDataReader.loadData());
 
-    assertEquals("Error reading json file:test.json message: Invalid JSON", exception.getMessage());
+    assertEquals("❌ Error reading json file:test.json message: Invalid JSON", exception.getMessage());
   }
 }

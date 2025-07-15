@@ -2,7 +2,6 @@ package com.mr486.safetynet.tools;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mr486.safetynet.dto.DataBinding;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +15,6 @@ import java.io.File;
  */
 @Slf4j
 @Component
-@Data
 @RequiredArgsConstructor
 public class JsonDataReader {
 
@@ -46,5 +44,10 @@ public class JsonDataReader {
     } catch (Exception e) {
       throw new RuntimeException("❌ Error reading json file:" + dataFilePath + " message: " + e.getMessage());
     }
+  }
+
+  public void setDataFilePath(String s) {
+    this.dataFilePath = s;
+    log.info("Data file path set to: {}", dataFilePath);
   }
 }
