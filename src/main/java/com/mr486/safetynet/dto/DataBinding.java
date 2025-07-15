@@ -5,6 +5,7 @@ import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;

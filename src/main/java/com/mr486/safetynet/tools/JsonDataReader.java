@@ -45,9 +45,4 @@ public class JsonDataReader {
       throw new RuntimeException("❌ Error reading json file:" + dataFilePath + " message: " + e.getMessage());
     }
   }
-
-  public void setDataFilePath(String s) {
-    this.dataFilePath = s;
-    log.info("Data file path set to: {}", dataFilePath);
-  }
 }
