@@ -1,4 +1,4 @@
-package com.mr486.safetynet.repository.implementation;
+package com.mr486.safetynet.repository.impl;
 
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.repository.FireStationRepository;
