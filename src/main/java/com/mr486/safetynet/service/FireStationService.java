@@ -24,7 +24,7 @@ public class FireStationService {
    *
    * @return a list of all fire stations.
    */
-  List<FireStation> findAll() {
+  public List<FireStation> findAll() {
     return fireStationRepository.findAll();
   }
 
@@ -34,7 +34,7 @@ public class FireStationService {
    * @param address the address of the fire station.
    * @return an Optional containing the FireStation if found, or empty if not found.
    */
-  FireStation findByAddress(String address){
+  public FireStation findByAddress(String address){
     return fireStationRepository.findByAddress(address)
         .orElseThrow(() -> new EntityAlreadyExistsException("Fire station not found at address: " + address));
   }
@@ -45,7 +45,7 @@ public class FireStationService {
    * @param fireStation the fire station to save.
    * @return the saved FireStation entity.
    */
-  FireStation save(FireStation fireStation){
+  public FireStation save(FireStation fireStation){
     if (exists(fireStation.getAddress())) {
       throw new EntityAlreadyExistsException("Fire station already exists at address: " + fireStation.getAddress());
     }
@@ -57,7 +57,7 @@ public class FireStationService {
    *
    * @param address the address of the fire station to delete.
    */
-  void delete(String address){
+  public void delete(String address){
     if (!exists(address)) {
       throw new EntityAlreadyExistsException("Fire station not found at address: " + address);
     }
@@ -70,7 +70,7 @@ public class FireStationService {
    * @param stationNumber the station number to search for.
    * @return a list of FireStation entities with the specified station number.
    */
-  List<FireStation> findByStationNumber(int stationNumber){
+  public List<FireStation> findByStationNumber(int stationNumber){
     return fireStationRepository.findByStationNumber(stationNumber);
   }
 
@@ -82,7 +82,7 @@ public class FireStationService {
    *
    * @return an Optional containing the updated FireStation if the update was successful, or empty if not found.
    */
-  FireStation update(String address, FireStationDto fireStationDto){
+  public FireStation update(String address, FireStationDto fireStationDto){
     if( !exists(address)) {
       throw new EntityAlreadyExistsException("Fire station not found at address: " + address);
     }
