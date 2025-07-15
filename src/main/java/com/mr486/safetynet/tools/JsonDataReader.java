@@ -44,7 +44,7 @@ public class JsonDataReader {
       File file = new File(dataFilePath);
       return mapper.readValue(file, DataBinding.class);
     } catch (Exception e) {
-      throw new RuntimeException("Error reading json file:" + dataFilePath + " message: " + e.getMessage());
+      throw new RuntimeException("❌ Error reading json file:" + dataFilePath + " message: " + e.getMessage());
     }
   }
 }
