@@ -24,6 +24,8 @@ public class FireStationController {
    * Adds a new fire station.
    *
    * @param fireStation The FireStation object to be added. Must be valid.
+   *
+   * @return ResponseEntity containing the created FireStation object with status CREATED.
    */
   @PostMapping(path = "", produces = "application/json")
   public ResponseEntity<FireStation> addFireStation(@RequestBody @Valid FireStation fireStation) {
