@@ -7,12 +7,19 @@ package com.mr486.safetynet.configuration;
  */
 public class AppConfiguation {
 
-  // Path to the JSON file containing data
+  /**
+   * Path to the JSON file containing the data.
+   */
   public static final String JSON_FILE_PATH = "data/data.json";
 
-  // Date format used in the application
+
+  /**
+   * Date format used in the application.
+   */
   public static final String DATE_FORMAT = "MM/dd/yyyy";
 
-  // Age threshold to determine if a person is considered an adult
+  /**
+   * Age threshold for considering a person as an adult.
+   */
   public static final int ADULT_AGE = 18;
 }
