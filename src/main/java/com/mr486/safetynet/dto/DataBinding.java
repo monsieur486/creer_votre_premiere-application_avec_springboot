@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-public class DataBindingDto {
+public class DataBinding {
 
   /**
    * A list of persons.
@@ -35,7 +35,7 @@ public class DataBindingDto {
   /**
    * Default constructor that initializes the lists of persons, fire stations, and medical records as empty lists.
    */
-  public DataBindingDto() {
+  public DataBinding() {
     this.persons = new ArrayList<>();
     this.firestations = new ArrayList<>();
     this.medicalrecords = new ArrayList<>();

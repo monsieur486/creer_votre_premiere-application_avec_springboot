@@ -12,23 +12,23 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for the {@link DataBindingDto} class.
- * This test class verifies the correct behavior of the DataBindingDto,
+ * Unit tests for the {@link DataBinding} class.
+ * This test class verifies the correct behavior of the DataBinding,
  * including initialization and manipulation of persons, firestations, and medical records lists.
  */
-class DataBindingDtoTest {
+class DataBindingTest {
 
   /**
-   * Instance of DataBindingDto used for testing.
+   * Instance of DataBinding used for testing.
    */
-  private DataBindingDto dataBindingDto;
+  private DataBinding dataBinding;
 
   /**
-   * Initializes a new DataBindingDto before each test.
+   * Initializes a new DataBinding before each test.
    */
   @BeforeEach
   void setUp() {
-    dataBindingDto = new DataBindingDto();
+    dataBinding = new DataBinding();
   }
 
   /**
@@ -36,12 +36,12 @@ class DataBindingDtoTest {
    */
   @Test
   void constructor_shouldInitializeEmptyLists() {
-    assertNotNull(dataBindingDto.getPersons());
-    assertNotNull(dataBindingDto.getFirestations());
-    assertNotNull(dataBindingDto.getMedicalrecords());
-    assertTrue(dataBindingDto.getPersons().isEmpty());
-    assertTrue(dataBindingDto.getFirestations().isEmpty());
-    assertTrue(dataBindingDto.getMedicalrecords().isEmpty());
+    assertNotNull(dataBinding.getPersons());
+    assertNotNull(dataBinding.getFirestations());
+    assertNotNull(dataBinding.getMedicalrecords());
+    assertTrue(dataBinding.getPersons().isEmpty());
+    assertTrue(dataBinding.getFirestations().isEmpty());
+    assertTrue(dataBinding.getMedicalrecords().isEmpty());
   }
 
   /**
@@ -57,8 +57,8 @@ class DataBindingDtoTest {
             "12345",
             "123-456-7890",
             "john.doe@example.com"));
-    dataBindingDto.setPersons(persons);
-    assertEquals(persons, dataBindingDto.getPersons());
+    dataBinding.setPersons(persons);
+    assertEquals(persons, dataBinding.getPersons());
   }
 
   /**
@@ -67,8 +67,8 @@ class DataBindingDtoTest {
   @Test
   void setFirestations_shouldUpdateFirestationsList() {
     List<FireStation> firestations = List.of(new FireStation("123 Street", 1 ));
-    dataBindingDto.setFirestations(firestations);
-    assertEquals(firestations, dataBindingDto.getFirestations());
+    dataBinding.setFirestations(firestations);
+    assertEquals(firestations, dataBinding.getFirestations());
   }
 
   /**
@@ -89,8 +89,8 @@ class DataBindingDtoTest {
             medications,
             allergies);
     List<MedicalRecord> medicalRecords = List.of(medicalRecord);
-    dataBindingDto.setMedicalrecords(medicalRecords);
-    assertEquals(medicalRecords, dataBindingDto.getMedicalrecords());
+    dataBinding.setMedicalrecords(medicalRecords);
+    assertEquals(medicalRecords, dataBinding.getMedicalrecords());
   }
 
   /**
@@ -106,8 +106,8 @@ class DataBindingDtoTest {
             "67890",
             "987-654-3210",
             "jane.doe@example.com");
-    dataBindingDto.getPersons().add(person);
-    assertTrue(dataBindingDto.getPersons().contains(person));
+    dataBinding.getPersons().add(person);
+    assertTrue(dataBinding.getPersons().contains(person));
   }
 
   /**
@@ -118,8 +118,8 @@ class DataBindingDtoTest {
     FireStation fireStation = new FireStation(
             "456 Avenue",
             2);
-    dataBindingDto.getFirestations().add(fireStation);
-    assertTrue(dataBindingDto.getFirestations().contains(fireStation));
+    dataBinding.getFirestations().add(fireStation);
+    assertTrue(dataBinding.getFirestations().contains(fireStation));
   }
 
   /**
@@ -139,7 +139,7 @@ class DataBindingDtoTest {
             "02/02/2000",
             medications,
             allergies);
-    dataBindingDto.getMedicalrecords().add(medicalRecord);
-    assertTrue(dataBindingDto.getMedicalrecords().contains(medicalRecord));
+    dataBinding.getMedicalrecords().add(medicalRecord);
+    assertTrue(dataBinding.getMedicalrecords().contains(medicalRecord));
   }
 }

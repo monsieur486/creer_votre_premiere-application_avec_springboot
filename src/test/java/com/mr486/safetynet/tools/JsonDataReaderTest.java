@@ -1,7 +1,7 @@
 package com.mr486.safetynet.tools;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mr486.safetynet.dto.DataBindingDto;
+import com.mr486.safetynet.dto.DataBinding;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,10 +28,10 @@ class JsonDataReaderTest {
 
   @Test
   void loadData_shouldReturnDataBindingDtoWhenFileIsValid() throws Exception {
-    DataBindingDto expectedData = new DataBindingDto();
-    when(mockMapper.readValue(new File("test.json"), DataBindingDto.class)).thenReturn(expectedData);
+    DataBinding expectedData = new DataBinding();
+    when(mockMapper.readValue(new File("test.json"), DataBinding.class)).thenReturn(expectedData);
 
-    DataBindingDto result = jsonDataReader.loadData();
+    DataBinding result = jsonDataReader.loadData();
 
     assertNotNull(result);
     assertEquals(expectedData, result);
@@ -39,7 +39,7 @@ class JsonDataReaderTest {
 
   @Test
   void loadData_shouldThrowRuntimeExceptionWhenFileNotFound() throws Exception {
-    when(mockMapper.readValue(new File("test.json"), DataBindingDto.class)).thenThrow(new RuntimeException("File not found"));
+    when(mockMapper.readValue(new File("test.json"), DataBinding.class)).thenThrow(new RuntimeException("File not found"));
 
     RuntimeException exception = assertThrows(RuntimeException.class, () -> jsonDataReader.loadData());
 
@@ -48,7 +48,7 @@ class JsonDataReaderTest {
 
   @Test
   void loadData_shouldThrowRuntimeExceptionWhenJsonIsInvalid() throws Exception {
-    when(mockMapper.readValue(new File("test.json"), DataBindingDto.class)).thenThrow(new RuntimeException("Invalid JSON"));
+    when(mockMapper.readValue(new File("test.json"), DataBinding.class)).thenThrow(new RuntimeException("Invalid JSON"));
 
     RuntimeException exception = assertThrows(RuntimeException.class, () -> jsonDataReader.loadData());
 
