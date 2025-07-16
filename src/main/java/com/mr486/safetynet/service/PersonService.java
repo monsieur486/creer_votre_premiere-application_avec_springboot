@@ -2,6 +2,7 @@ package com.mr486.safetynet.service;
 
 import com.mr486.safetynet.configuration.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.configuration.exception.EntityNotFoundException;
+import com.mr486.safetynet.dto.PersonDto;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
@@ -42,15 +43,6 @@ public class PersonService {
     return personRepository.save(person);
   }
 
-  private boolean exists(String firstName, String lastName) {
-    return personRepository.exists(firstName, lastName);
-  }
-
-  private EntityNotFoundException peronNotFoundException(String firstName, String lastName) {
-    return new EntityNotFoundException(
-            "Person not found: " + firstName + " " + lastName);
-  }
-
   public void delete(String firstName, String lastName) {
     if (!exists(firstName, lastName)) {
       log.error("Attempt to delete a non-existing person: {} {}", firstName, lastName);
@@ -60,13 +52,45 @@ public class PersonService {
     personRepository.delete(firstName, lastName);
   }
 
+  public Person update(String firstName, String lastName, PersonDto personDto) {
+    if (!exists(firstName, lastName)) {
+      log.error("Attempt to update a non-existing person: {} {}", firstName, lastName);
+      throw peronNotFoundException(firstName, lastName);
+    }
+    Person updatedPerson = new Person(
+            firstName,
+            lastName,
+            personDto.getAddress(),
+            personDto.getCity(),
+            personDto.getZip(),
+            personDto.getPhone(),
+            personDto.getEmail()
+    );
+    log.info("Updating person: {} {}", firstName, lastName);
+    log.debug("Deleting old person data: {} {}", firstName, lastName);
+    personRepository.delete(firstName, lastName);
+    log.debug("Saving updated person data: {} {}", firstName, lastName);
+    return personRepository.save(updatedPerson);
+  }
+
   public List<Person> findByAddress(String address) {
     log.info("Finding persons by address: {}", address);
     return personRepository.findByAddress(address);
   }
 
+  // Private methods for exception handling and existence checks
+
   private EntityAlreadyExistsException personDuplicateException(String firstName, String lastName) {
     return new EntityAlreadyExistsException(
             "Person already exists: " + firstName + " " + lastName);
+  }
+
+  private EntityNotFoundException peronNotFoundException(String firstName, String lastName) {
+    return new EntityNotFoundException(
+            "Person not found: " + firstName + " " + lastName);
+  }
+
+  private boolean exists(String firstName, String lastName) {
+    return personRepository.exists(firstName, lastName);
   }
 }
