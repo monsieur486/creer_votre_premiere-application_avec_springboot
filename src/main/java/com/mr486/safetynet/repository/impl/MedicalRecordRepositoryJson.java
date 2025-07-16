@@ -36,15 +36,15 @@ public class MedicalRecordRepositoryJson implements MedicalRecordRepository {
 
   @Override
   public List<MedicalRecord> findAll() {
-    return  medicalRecords;
+    return medicalRecords;
   }
 
   @Override
   public Optional<MedicalRecord> findByFirstNameAndLastName(String firstName, String lastName) {
     return medicalRecords.stream()
-        .filter(medicalRecord -> medicalRecord.getFirstName().equalsIgnoreCase(firstName) &&
-                                 medicalRecord.getLastName().equalsIgnoreCase(lastName))
-        .findFirst();
+            .filter(medicalRecord -> medicalRecord.getFirstName().equalsIgnoreCase(firstName) &&
+                    medicalRecord.getLastName().equalsIgnoreCase(lastName))
+            .findFirst();
   }
 
   @Override
@@ -56,13 +56,13 @@ public class MedicalRecordRepositoryJson implements MedicalRecordRepository {
   @Override
   public void delete(String firstName, String lastName) {
     medicalRecords.removeIf(medicalRecord -> medicalRecord.getFirstName().equalsIgnoreCase(firstName) &&
-                                              medicalRecord.getLastName().equalsIgnoreCase(lastName));
+            medicalRecord.getLastName().equalsIgnoreCase(lastName));
   }
 
   @Override
   public boolean exists(String firstName, String lastName) {
     return medicalRecords.stream()
-        .anyMatch(medicalRecord -> medicalRecord.getFirstName().equalsIgnoreCase(firstName) &&
-                                   medicalRecord.getLastName().equalsIgnoreCase(lastName));
+            .anyMatch(medicalRecord -> medicalRecord.getFirstName().equalsIgnoreCase(firstName) &&
+                    medicalRecord.getLastName().equalsIgnoreCase(lastName));
   }
 }

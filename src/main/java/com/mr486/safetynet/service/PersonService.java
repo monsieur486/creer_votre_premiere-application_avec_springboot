@@ -20,11 +20,11 @@ public class PersonService {
 
   public List<Person> findAll() {
     log.info("Retrieving all persons");
-    return  personRepository.findAll();
+    return personRepository.findAll();
   }
 
   public Person findByFirstNameAndLastName(String firstName, String lastName) {
-    if(!exists(firstName, lastName)) {
+    if (!exists(firstName, lastName)) {
       log.error("Person not found: {} {}", firstName, lastName);
       throw peronNotFoundException(firstName, lastName);
     }
@@ -61,7 +61,7 @@ public class PersonService {
     Person existingPerson = personRepository.findByFirstNameAndLastName(firstName, lastName)
             .orElseThrow(() -> peronNotFoundException(firstName, lastName));
 
-    Person updatedPerson = personDto.toPerson(existingPerson.getFirstName(), existingPerson.getLastName() );
+    Person updatedPerson = personDto.toPerson(existingPerson.getFirstName(), existingPerson.getLastName());
     log.info("Updating person: {} {}", firstName, lastName);
     log.debug("Deleting old person data: {} {}", firstName, lastName);
     personRepository.delete(firstName, lastName);

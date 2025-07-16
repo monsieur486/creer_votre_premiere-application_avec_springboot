@@ -26,7 +26,7 @@ public class MedicaRecordController {
   @Profile("dev")
   @GetMapping(path = "/firstname/{firstName}/lastname/{lastName}", produces = "application/json")
   public ResponseEntity<MedicalRecord> getMedicalRecordByName(
-      String firstName, String lastName) {
+          String firstName, String lastName) {
     MedicalRecord medicalRecord = medicalRecordService.findByFirstNameAndLastName(firstName, lastName);
     return ResponseEntity.ok(medicalRecord);
   }
@@ -39,17 +39,17 @@ public class MedicaRecordController {
 
   @PutMapping(path = "/firstname/{firstName}/lastname/{lastName}", produces = "application/json")
   public ResponseEntity<MedicalRecord> updateMedicalRecord(
-      @PathVariable String firstName,
-      @PathVariable String lastName,
-      @Valid @RequestBody MedicalRecordDto medicalRecordDto) {
+          @PathVariable String firstName,
+          @PathVariable String lastName,
+          @Valid @RequestBody MedicalRecordDto medicalRecordDto) {
     MedicalRecord updatedMedicalRecord = medicalRecordService.update(firstName, lastName, medicalRecordDto);
     return ResponseEntity.ok(updatedMedicalRecord);
   }
 
   @DeleteMapping(path = "/firstname/{firstName}/lastname/{lastName}", produces = "application/json")
   public ResponseEntity<Void> deleteMedicalRecord(
-      @PathVariable String firstName,
-      @PathVariable String lastName) {
+          @PathVariable String firstName,
+          @PathVariable String lastName) {
     medicalRecordService.delete(firstName, lastName);
     return ResponseEntity.noContent().build();
   }

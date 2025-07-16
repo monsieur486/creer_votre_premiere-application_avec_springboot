@@ -38,14 +38,14 @@ public class FireStationService {
    * @param address the address of the fire station.
    * @return an Optional containing the FireStation if found, or empty if not found.
    */
-  public FireStation findByAddress(String address){
-    if( !exists(address)) {
+  public FireStation findByAddress(String address) {
+    if (!exists(address)) {
       log.error("Fire station not found at address: {}", address);
       throw fireStationNotFoundException(address);
     }
     log.info("Finding fire station at address: {}", address);
     return fireStationRepository.findByAddress(address)
-        .orElseThrow(() -> fireStationNotFoundException(address));
+            .orElseThrow(() -> fireStationNotFoundException(address));
   }
 
   /**
@@ -54,7 +54,7 @@ public class FireStationService {
    * @param fireStation the fire station to save.
    * @return the saved FireStation entity.
    */
-  public FireStation save(FireStation fireStation){
+  public FireStation save(FireStation fireStation) {
     if (exists(fireStation.getAddress())) {
       log.error("Attempt to save a duplicate fire station at address: {}", fireStation.getAddress());
       throw fireStationDuplicateException(fireStation.getAddress());
@@ -68,7 +68,7 @@ public class FireStationService {
    *
    * @param address the address of the fire station to delete.
    */
-  public void delete(String address){
+  public void delete(String address) {
     if (!exists(address)) {
       log.error("Attempt to delete a non-existing fire station at address: {}", address);
       throw fireStationNotFoundException(address);
@@ -83,7 +83,7 @@ public class FireStationService {
    * @param stationNumber the station number to search for.
    * @return a list of FireStation entities with the specified station number.
    */
-  public List<FireStation> findByStationNumber(int stationNumber){
+  public List<FireStation> findByStationNumber(int stationNumber) {
     log.info("Finding fire stations with station number: {}", stationNumber);
     return fireStationRepository.findByStationNumber(stationNumber);
   }
@@ -91,13 +91,12 @@ public class FireStationService {
   /**
    * Updates a fire station at the specified address with the provided data transfer object.
    *
-   * @param address the address of the fire station to update.
+   * @param address        the address of the fire station to update.
    * @param fireStationDto the data transfer object containing updated fire station information.
-   *
    * @return an Optional containing the updated FireStation if the update was successful, or empty if not found.
    */
-  public FireStation update(String address, FireStationDto fireStationDto){
-    if( !exists(address)) {
+  public FireStation update(String address, FireStationDto fireStationDto) {
+    if (!exists(address)) {
       log.error("Attempt to update a non-existing fire station at address: {}", address);
       throw fireStationNotFoundException(address);
     }
@@ -107,7 +106,7 @@ public class FireStationService {
 
     FireStation updatedFireStation = new FireStation(
             existingFireStation.getAddress(),
-        fireStationDto.getStation()
+            fireStationDto.getStation()
     );
     log.info("Updating fire station at address: {}", address);
     log.debug("Deleting existing fire station at address: {}", address);
