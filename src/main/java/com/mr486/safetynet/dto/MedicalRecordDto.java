@@ -1,5 +1,6 @@
 package com.mr486.safetynet.dto;
 
+import com.mr486.safetynet.model.MedicalRecord;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,4 +32,15 @@ public class MedicalRecordDto {
    * A list of allergies the person has.
    */
   private ArrayList<String> allergies;
+
+  /**
+   * Converts this DTO to a MedicalRecord entity.
+   *
+   * @param firstName The first name of the person.
+   * @param lastName  The last name of the person.
+   * @return A MedicalRecord object containing the data from this DTO.
+   */
+  public MedicalRecord toMedicalRecord(String firstName, String lastName) {
+    return new MedicalRecord(firstName, lastName, birthdate, medications, allergies);
+  }
 }
