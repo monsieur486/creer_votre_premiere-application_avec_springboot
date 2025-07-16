@@ -5,7 +5,6 @@ import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.service.FireStationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +65,6 @@ public class FireStationController {
    * @param address The address of the fire station to be retrieved.
    * @return ResponseEntity containing the FireStation object if found, or NOT_FOUND if not found.
    */
-  @Profile("dev")
   @GetMapping(path = "/{address}", produces = "application/json")
   public ResponseEntity<FireStation> getFireStationByAddress(@PathVariable String address) {
     FireStation fireStation = fireStationService.findByAddress(address);
@@ -78,7 +76,6 @@ public class FireStationController {
    *
    * @return ResponseEntity containing a list of all FireStation objects.
    */
-  @Profile("dev")
   @GetMapping(path = "/all", produces = "application/json")
   public ResponseEntity<Iterable<FireStation>> getAllFireStations() {
     Iterable<FireStation> fireStations = fireStationService.findAll();

@@ -5,7 +5,6 @@ import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.service.PersonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +15,12 @@ public class PersonController {
 
   private final PersonService personService;
 
-  @Profile("dev")
   @GetMapping(path = "/all", produces = "application/json")
   public ResponseEntity<Iterable<Person>> getAllPersons() {
     Iterable<Person> persons = personService.findAll();
     return ResponseEntity.ok(persons);
   }
 
-  @Profile("dev")
   @GetMapping(path = "/firstname/{firstName}/lastname/{lastName}", produces = "application/json")
   public ResponseEntity<Person> getPersonByName(
           @PathVariable String firstName,
