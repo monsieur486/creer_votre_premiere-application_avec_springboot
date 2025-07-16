@@ -101,8 +101,12 @@ public class FireStationService {
       log.error("Attempt to update a non-existing fire station at address: {}", address);
       throw fireStationNotFoundException(address);
     }
+
+    FireStation existingFireStation = fireStationRepository.findByAddress(address)
+            .orElseThrow(() -> fireStationNotFoundException(address));
+
     FireStation updatedFireStation = new FireStation(
-        address,
+            existingFireStation.getAddress(),
         fireStationDto.getStation()
     );
     log.info("Updating fire station at address: {}", address);
