@@ -21,7 +21,7 @@ public class PersonController {
     return ResponseEntity.ok(persons);
   }
 
-  @GetMapping(path = "/firstanme/{firstName}/lastname/{lastName}", produces = "application/json")
+  @GetMapping(path = "/firstname/{firstName}/lastname/{lastName}", produces = "application/json")
   public ResponseEntity<Person> getPersonByName(
           @PathVariable String firstName,
           @PathVariable String lastName) {
@@ -35,7 +35,7 @@ public class PersonController {
     return ResponseEntity.status(org.springframework.http.HttpStatus.CREATED).body(savedPerson);
   }
 
-  @PutMapping(path = "/firstanme/{firstName}/lastname/{lastName}", produces = "application/json")
+  @PutMapping(path = "/firstname/{firstName}/lastname/{lastName}", produces = "application/json")
   public ResponseEntity<Person> updatePerson(
           @PathVariable String firstName,
           @PathVariable String lastName,

@@ -57,15 +57,11 @@ public class PersonService {
       log.error("Attempt to update a non-existing person: {} {}", firstName, lastName);
       throw peronNotFoundException(firstName, lastName);
     }
-    Person updatedPerson = new Person(
-            firstName,
-            lastName,
-            personDto.getAddress(),
-            personDto.getCity(),
-            personDto.getZip(),
-            personDto.getPhone(),
-            personDto.getEmail()
-    );
+
+    Person existingPerson = personRepository.findByFirstNameAndLastName(firstName, lastName)
+            .orElseThrow(() -> peronNotFoundException(firstName, lastName));
+
+    Person updatedPerson = personDto.toPerson(existingPerson.getFirstName(), existingPerson.getLastName() );
     log.info("Updating person: {} {}", firstName, lastName);
     log.debug("Deleting old person data: {} {}", firstName, lastName);
     personRepository.delete(firstName, lastName);

@@ -1,5 +1,6 @@
 package com.mr486.safetynet.dto;
 
+import com.mr486.safetynet.model.Person;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -41,5 +42,16 @@ public class PersonDto {
   @NotBlank(message = "email cannot be blank")
   @Email(message = "email should be valid")
   private String email;
+
+  /**
+   * Converts this DTO to a Person entity.
+   *
+   * @param firstName the first name of the person
+   * @param lastName  the last name of the person
+   * @return a new Person instance with the provided names and this DTO's data
+   */
+  public Person toPerson(String firstName, String lastName) {
+    return new Person(firstName, lastName, address, city, zip, phone, email);
+  }
 
 }
