@@ -44,7 +44,7 @@ public class PersonController {
     return ResponseEntity.ok(updatedPerson);
   }
 
-  @DeleteMapping(path = "/firstanme/{firstName}/lastname/{lastName}", produces = "application/json")
+  @DeleteMapping(path = "/firstname/{firstName}/lastname/{lastName}", produces = "application/json")
   public ResponseEntity<Void> deletePerson(
           @PathVariable String firstName,
           @PathVariable String lastName) {
