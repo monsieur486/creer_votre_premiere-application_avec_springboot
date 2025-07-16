@@ -1,4 +1,4 @@
-package com.mr486.safetynet.configuration.exception;
+package com.mr486.safetynet.exception;
 
 /**
  * Exception thrown when an entity that is being created already exists.
