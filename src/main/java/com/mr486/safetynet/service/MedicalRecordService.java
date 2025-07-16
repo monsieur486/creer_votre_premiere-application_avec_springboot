@@ -1,8 +1,8 @@
 package com.mr486.safetynet.service;
 
+import com.mr486.safetynet.dto.MedicalRecordDto;
 import com.mr486.safetynet.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.exception.EntityNotFoundException;
-import com.mr486.safetynet.dto.MedicalRecordDto;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.MedicalRecordRepository;
