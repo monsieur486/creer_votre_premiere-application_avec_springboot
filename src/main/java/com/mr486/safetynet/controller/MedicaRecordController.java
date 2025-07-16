@@ -5,6 +5,7 @@ import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.service.MedicalRecordService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,14 @@ public class MedicaRecordController {
 
   private final MedicalRecordService medicalRecordService;
 
+  @Profile("dev")
   @GetMapping(path = "/all", produces = "application/json")
   public ResponseEntity<Iterable<MedicalRecord>> getAllMedicalRecords() {
     Iterable<MedicalRecord> medicalRecords = medicalRecordService.findAll();
     return ResponseEntity.ok(medicalRecords);
   }
 
+  @Profile("dev")
   @GetMapping(path = "/firstname/{firstName}/lastname/{lastName}", produces = "application/json")
   public ResponseEntity<MedicalRecord> getMedicalRecordByName(
       String firstName, String lastName) {
