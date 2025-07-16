@@ -1,8 +1,8 @@
 package com.mr486.safetynet.service;
 
+import com.mr486.safetynet.configuration.exception.EntityAlreadyExistsException;
+import com.mr486.safetynet.configuration.exception.EntityNotFoundException;
 import com.mr486.safetynet.dto.FireStationDto;
-import com.mr486.safetynet.exception.EntityAlreadyExistsException;
-import com.mr486.safetynet.exception.EntityNotFoundException;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.repository.FireStationRepository;
 import lombok.RequiredArgsConstructor;

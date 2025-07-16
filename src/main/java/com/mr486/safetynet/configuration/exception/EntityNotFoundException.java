@@ -1,4 +1,4 @@
-package com.mr486.safetynet.exception;
+package com.mr486.safetynet.configuration.exception;
 
 /**
  * Exception thrown when a requested entity is not found.
