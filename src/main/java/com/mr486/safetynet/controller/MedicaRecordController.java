@@ -29,9 +29,11 @@ public class MedicaRecordController {
     return ResponseEntity.ok(medicalRecord);
   }
 
-  @PostMapping(path = "", produces = "application/json")
-  public ResponseEntity<MedicalRecord> addMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
-    MedicalRecord savedMedicalRecord = medicalRecordService.save(medicalRecord);
+  @PostMapping(path = "/firstname/{firstName}/lastname/{lastName}", produces = "application/json")
+  public ResponseEntity<MedicalRecord> addMedicalRecord(@PathVariable String firstName,
+                                                        @PathVariable String lastName,
+                                                        @Valid @RequestBody MedicalRecordDto medicalRecordDto) {
+    MedicalRecord savedMedicalRecord = medicalRecordService.save(firstName, lastName, medicalRecordDto);
     return ResponseEntity.status(org.springframework.http.HttpStatus.CREATED).body(savedMedicalRecord);
   }
 

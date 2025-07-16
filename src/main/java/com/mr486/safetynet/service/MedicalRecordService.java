@@ -4,12 +4,15 @@ import com.mr486.safetynet.configuration.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.configuration.exception.EntityNotFoundException;
 import com.mr486.safetynet.dto.MedicalRecordDto;
 import com.mr486.safetynet.model.MedicalRecord;
+import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.MedicalRecordRepository;
+import com.mr486.safetynet.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +20,7 @@ import java.util.List;
 public class MedicalRecordService {
 
   private final MedicalRecordRepository medicalRecordRepository;
+  private final PersonRepository personRepository;
 
   public List<MedicalRecord> findAll() {
     log.info("Retrieving all medical records");
@@ -35,13 +39,25 @@ public class MedicalRecordService {
             .orElseThrow(() -> medicalRecordNotFoundException(firstName, lastName));
   }
 
-  public MedicalRecord save(MedicalRecord medicalRecord) {
-    if (exists(medicalRecord.getFirstName(), medicalRecord.getLastName())) {
-      log.error("Attempt to save a duplicate medical record for: {} {}", medicalRecord.getFirstName(), medicalRecord.getLastName());
-      throw medicalRecordAlreadyExists(medicalRecord.getFirstName(), medicalRecord.getLastName());
+  public MedicalRecord save(String firstName, String lastName, MedicalRecordDto medicalRecordDto) {
+
+    if(!personRepository.exists(firstName, lastName)) {
+      log.error("Attempt to save a medical record for a non-existing person: {} {}", firstName, lastName);
+      throw peronNotFoundException(firstName, lastName);
     }
-    log.info("Saving medical record for: {} {}", medicalRecord.getFirstName(), medicalRecord.getLastName());
+
+    if (exists(firstName, lastName)) {
+      log.error("Attempt to save an existing medical record for: {} {}", firstName, lastName);
+      throw medicalRecordAlreadyExists(firstName, lastName);
+    }
+
+    Person person = personRepository.findByFirstNameAndLastName(firstName, lastName)
+            .orElseThrow(() -> peronNotFoundException(firstName, lastName));
+
+    log.info("Saving medical record for: {} {}", person.getFirstName(), person.getLastName());
+    MedicalRecord medicalRecord = medicalRecordDto.toMedicalRecord(person.getFirstName(), person.getLastName());
     return medicalRecordRepository.save(medicalRecord);
+
   }
 
   public void delete(String firstName, String lastName) {
@@ -78,11 +94,17 @@ public class MedicalRecordService {
     return medicalRecordRepository.findByFirstNameAndLastName(firstName, lastName).isPresent();
   }
 
+  // private methods to create exceptions
+
   private EntityNotFoundException medicalRecordNotFoundException(String firstName, String lastName) {
     return new EntityNotFoundException("Medical record for: " + firstName + " " + lastName + " not exists.");
   }
 
   private EntityAlreadyExistsException medicalRecordAlreadyExists(String firstName, String lastName) {
     return new EntityAlreadyExistsException("Medical record for: " + firstName + " " + lastName + " already exists.");
+  }
+
+  private EntityNotFoundException peronNotFoundException(String firstName, String lastName) {
+    return new EntityNotFoundException("Person with name " + firstName + " " + lastName + " does not exist.");
   }
 }
