@@ -78,12 +78,12 @@ public class PersonService {
 
   private EntityAlreadyExistsException personDuplicateException(String firstName, String lastName) {
     return new EntityAlreadyExistsException(
-            "Person already exists: " + firstName + " " + lastName);
+            "Person " + firstName + " " + lastName + " already exists");
   }
 
   private EntityNotFoundException peronNotFoundException(String firstName, String lastName) {
     return new EntityNotFoundException(
-            "Person not found: " + firstName + " " + lastName);
+            "Person " + firstName + " " + lastName + " not exists");
   }
 
   private boolean exists(String firstName, String lastName) {
