@@ -41,7 +41,7 @@ public class MedicalRecordService {
 
   public MedicalRecord save(String firstName, String lastName, MedicalRecordDto medicalRecordDto) {
 
-    if(!personRepository.exists(firstName, lastName)) {
+    if (!personRepository.exists(firstName, lastName)) {
       log.error("Attempt to save a medical record for a non-existing person: {} {}", firstName, lastName);
       throw peronNotFoundException(firstName, lastName);
     }
