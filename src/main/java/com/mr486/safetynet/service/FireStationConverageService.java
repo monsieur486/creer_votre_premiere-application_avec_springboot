@@ -42,7 +42,6 @@ public class FireStationConverageService {
       getResponse(persons, responseDto);
     }
 
-    log.info("Returning coverage for fire station number: {}", stationNumber);
     return responseDto;
   }
 
