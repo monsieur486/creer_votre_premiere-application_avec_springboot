@@ -94,7 +94,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(NoHandlerFoundException.class)
   public ResponseEntity<ErrorResponseDto> handleNoHandlerFoundException(NoHandlerFoundException ex) {
     ErrorResponseDto errorResponse = new ErrorResponseDto(
-            "PAGE NOT FOUND " + ex.getRequestURL(),
+            "URL NOT FOUND " + ex.getRequestURL(),
             404
     );
     return ResponseEntity
