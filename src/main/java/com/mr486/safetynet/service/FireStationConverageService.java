@@ -1,18 +1,12 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.configuration.AppConfiguation;
 import com.mr486.safetynet.dto.CoverageResponseDto;
 import com.mr486.safetynet.model.FireStation;
-import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Service
@@ -63,37 +57,11 @@ public class FireStationConverageService {
       );
       response.getPersons().add(personInfo);
 
-      if (isAdult(person)) {
+      if (medicalRecordService.isAdult(person)) {
         response.setAdultCount(response.getAdultCount() + 1);
       } else {
         response.setChildCount(response.getChildCount() + 1);
       }
-    }
-
-  }
-
-  private boolean isAdult(Person person) {
-    try {
-      int age = getAge(person);
-      return age >= AppConfiguation.ADULT_AGE;
-    } catch (IllegalArgumentException e) {
-      log.error("Invalid age: {}", e.getMessage());
-      throw new IllegalArgumentException("Error calculating age for person: " + person.getFirstName() + " " + person.getLastName(), e);
-    }
-  }
-
-  private int getAge(Person person) {
-    MedicalRecord medicalRecord = medicalRecordService.findByFirstNameAndLastName(
-            person.getFirstName(),
-            person.getLastName());
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConfiguation.DATE_FORMAT);
-    try {
-      LocalDate now = LocalDate.now();
-      return Period.between(LocalDate.parse(medicalRecord.getBirthdate(), formatter), now).getYears();
-    } catch (DateTimeParseException e) {
-      log.error("Invalid birthdate format for person {}: {}", person.getFirstName() + " " + person.getLastName(), medicalRecord.getBirthdate());
-      throw new IllegalArgumentException("Invalid birthdate format. Expected format is: " + AppConfiguation.DATE_FORMAT, e);
     }
 
   }

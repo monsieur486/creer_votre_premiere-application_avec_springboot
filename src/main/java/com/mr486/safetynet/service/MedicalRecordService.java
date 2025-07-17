@@ -1,5 +1,6 @@
 package com.mr486.safetynet.service;
 
+import com.mr486.safetynet.configuration.AppConfiguation;
 import com.mr486.safetynet.dto.MedicalRecordDto;
 import com.mr486.safetynet.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.exception.EntityNotFoundException;
@@ -11,6 +12,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 
@@ -106,5 +111,31 @@ public class MedicalRecordService {
 
   private EntityNotFoundException peronNotFoundException(String firstName, String lastName) {
     return new EntityNotFoundException("Person with name " + firstName + " " + lastName + " does not exist.");
+  }
+
+  public boolean isAdult(Person person) {
+    try {
+      int age = getAge(person);
+      return age >= AppConfiguation.ADULT_AGE;
+    } catch (IllegalArgumentException e) {
+      log.error("Invalid age: {}", e.getMessage());
+      throw new IllegalArgumentException("Error calculating age for person: " + person.getFirstName() + " " + person.getLastName(), e);
+    }
+  }
+
+  public int getAge(Person person) {
+    MedicalRecord medicalRecord = findByFirstNameAndLastName(
+            person.getFirstName(),
+            person.getLastName());
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConfiguation.DATE_FORMAT);
+    try {
+      LocalDate now = LocalDate.now();
+      return Period.between(LocalDate.parse(medicalRecord.getBirthdate(), formatter), now).getYears();
+    } catch (DateTimeParseException e) {
+      log.error("Invalid birthdate format for person {}: {}", person.getFirstName() + " " + person.getLastName(), medicalRecord.getBirthdate());
+      throw new IllegalArgumentException("Invalid birthdate format. Expected format is: " + AppConfiguation.DATE_FORMAT, e);
+    }
+
   }
 }
