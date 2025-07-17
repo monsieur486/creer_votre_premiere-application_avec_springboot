@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service class for managing fire station coverage.
+ * Provides methods to retrieve coverage information for a specific fire station.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j

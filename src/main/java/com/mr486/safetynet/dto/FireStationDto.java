@@ -14,10 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FireStationDto {
 
-  /**
-   * The station number of the fire station.
-   * This field cannot be null.
-   */
   @NotNull(message = "Station number cannot be null")
   @Min(value = 1, message = "Station number must be greater than or equal to 1")
   private Integer station;

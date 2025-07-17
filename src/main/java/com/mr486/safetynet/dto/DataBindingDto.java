@@ -17,20 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 public class DataBindingDto {
 
-  /**
-   * A list of persons.
-   */
-  List<Person> persons;
-
-  /**
-   * A list of fire stations.
-   */
-  List<FireStation> firestations;
-
-  /**
-   * A list of medical records.
-   */
-  List<MedicalRecord> medicalrecords;
+  private List<Person> persons;
+  private List<FireStation> firestations;
+  private List<MedicalRecord> medicalrecords;
 
   /**
    * Default constructor that initializes the lists of persons, fire stations, and medical records as empty lists.

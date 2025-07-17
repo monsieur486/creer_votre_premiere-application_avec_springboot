@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ErrorResponseDto {
-  String message;
-  int errorCode;
-  String timestamp;
+  private String message;
+  private int errorCode;
+  private String timestamp;
 
   /**
    * Constructs an ErrorResponseDto with the specified message and error code.

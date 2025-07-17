@@ -17,20 +17,9 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class MedicalRecordDto {
 
-  /**
-   * The birthdate of the person.
-   */
   @NotBlank(message = "birthdate cannot be blank")
   private String birthdate;
-
-  /**
-   * A list of medications the person is taking.
-   */
   private ArrayList<String> medications;
-
-  /**
-   * A list of allergies the person has.
-   */
   private ArrayList<String> allergies;
 
   /**

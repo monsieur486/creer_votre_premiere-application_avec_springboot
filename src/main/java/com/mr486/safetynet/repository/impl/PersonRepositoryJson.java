@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of the PersonRepository interface that uses JSON data storage.
+ * This class provides methods to manage Person entities, including finding,
+ * saving, deleting, and checking existence of persons.
+ */
 @Repository
 @RequiredArgsConstructor
 public class PersonRepositoryJson implements PersonRepository {
@@ -33,11 +38,23 @@ public class PersonRepositoryJson implements PersonRepository {
     }
   }
 
+  /**
+   * Returns the list of persons managed by this repository.
+   *
+   * @return a list of Person objects
+   */
   @Override
   public List<Person> findAll() {
     return persons;
   }
 
+  /**
+   * Finds a person by their first and last name.
+   *
+   * @param firstName the first name of the person
+   * @param lastName  the last name of the person
+   * @return an Optional containing the found person, or empty if not found
+   */
   @Override
   public Optional<Person> findByFirstNameAndLastName(String firstName, String lastName) {
     return persons.stream()
@@ -46,18 +63,36 @@ public class PersonRepositoryJson implements PersonRepository {
             .findFirst();
   }
 
+  /**
+   * Saves a person to the repository.
+   * @param person the person to save
+   * @return the saved person
+   */
   @Override
   public Person save(Person person) {
     persons.add(person);
     return person;
   }
 
+  /**
+   * Deletes a person by their first and last name.
+   *
+   * @param firstName the first name of the person
+   * @param lastName  the last name of the person
+   */
   @Override
   public void delete(String firstName, String lastName) {
     persons.removeIf(person -> person.getFirstName().equalsIgnoreCase(firstName) &&
             person.getLastName().equalsIgnoreCase(lastName));
   }
 
+  /**
+   * Checks if a person exists by their first and last name.
+   *
+   * @param firstName the first name of the person
+   * @param lastName  the last name of the person
+   * @return true if the person exists, false otherwise
+   */
   @Override
   public boolean exists(String firstName, String lastName) {
     return persons.stream()
@@ -65,6 +100,12 @@ public class PersonRepositoryJson implements PersonRepository {
                     person.getLastName().equalsIgnoreCase(lastName));
   }
 
+  /**
+   * Finds all persons living at a specific address.
+   *
+   * @param address the address to search for
+   * @return a list of persons living at the specified address
+   */
   @Override
   public List<Person> findByAddress(String address) {
     return persons.stream()

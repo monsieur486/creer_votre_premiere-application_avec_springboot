@@ -17,7 +17,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-
+/**
+ * Service class for managing medical records.
+ * Provides methods to find, save, update, and delete medical records.
+ */
 @Service
 @RequiredArgsConstructor
 public class MedicalRecordService {
@@ -25,10 +28,23 @@ public class MedicalRecordService {
   private final MedicalRecordRepository medicalRecordRepository;
   private final PersonRepository personRepository;
 
+  /**
+   * Retrieves all medical records.
+   *
+   * @return a list of all medical records.
+   */
   public List<MedicalRecord> findAll() {
     return medicalRecordRepository.findAll();
   }
 
+  /**
+   * Finds a medical record by first name and last name.
+   *
+   * @param firstName the first name of the person
+   * @param lastName  the last name of the person
+   * @return the MedicalRecord if found
+   * @throws EntityNotFoundException if the medical record does not exist
+   */
   public MedicalRecord findByFirstNameAndLastName(String firstName, String lastName) {
 
     if (!exists(firstName, lastName)) {
@@ -39,6 +55,16 @@ public class MedicalRecordService {
             .orElseThrow(() -> medicalRecordNotFoundException(firstName, lastName));
   }
 
+  /**
+   * Saves a new medical record for a person.
+   *
+   * @param firstName       the first name of the person
+   * @param lastName        the last name of the person
+   * @param medicalRecordDto the DTO containing medical record data
+   * @return the saved MedicalRecord
+   * @throws EntityAlreadyExistsException if a medical record for the person already exists
+   * @throws EntityNotFoundException       if the person does not exist
+   */
   public MedicalRecord save(String firstName, String lastName, MedicalRecordDto medicalRecordDto) {
 
     if (!personRepository.exists(firstName, lastName)) {
@@ -57,6 +83,13 @@ public class MedicalRecordService {
 
   }
 
+  /**
+   * Deletes a medical record by first name and last name.
+   *
+   * @param firstName the first name of the person
+   * @param lastName  the last name of the person
+   * @throws EntityNotFoundException if the medical record does not exist
+   */
   public void delete(String firstName, String lastName) {
     if (!exists(firstName, lastName)) {
       throw medicalRecordNotFoundException(firstName, lastName);
@@ -64,6 +97,16 @@ public class MedicalRecordService {
     medicalRecordRepository.delete(firstName, lastName);
   }
 
+  /**
+   * Updates an existing medical record for a person.
+   *
+   * @param firstName       the first name of the person
+   * @param lastName        the last name of the person
+   * @param medicalRecordDto the DTO containing updated medical record data
+   * @return the updated MedicalRecord
+   * @throws EntityNotFoundException       if the medical record does not exist
+   * @throws EntityAlreadyExistsException if a medical record for the person already exists
+   */
   public MedicalRecord update(String firstName, String lastName, MedicalRecordDto medicalRecordDto) {
     if (!exists(firstName, lastName)) {
       throw medicalRecordNotFoundException(firstName, lastName);
@@ -80,25 +123,13 @@ public class MedicalRecordService {
     return medicalRecordRepository.save(updatedMedicalRecord);
   }
 
-
-  private boolean exists(String firstName, String lastName) {
-    return medicalRecordRepository.findByFirstNameAndLastName(firstName, lastName).isPresent();
-  }
-
-  // private methods to create exceptions
-
-  private EntityNotFoundException medicalRecordNotFoundException(String firstName, String lastName) {
-    return new EntityNotFoundException("Medical record for: " + firstName + " " + lastName + " not exists.");
-  }
-
-  private EntityAlreadyExistsException medicalRecordAlreadyExists(String firstName, String lastName) {
-    return new EntityAlreadyExistsException("Medical record for: " + firstName + " " + lastName + " already exists.");
-  }
-
-  private EntityNotFoundException peronNotFoundException(String firstName, String lastName) {
-    return new EntityNotFoundException("Person with name " + firstName + " " + lastName + " does not exist.");
-  }
-
+  /**
+   * Checks if a person is an adult based on their age.
+   *
+   * @param person the person to check
+   * @return true if the person is an adult, false otherwise
+   * @throws IllegalArgumentException if the person's age cannot be calculated
+   */
   public boolean isAdult(Person person) {
     try {
       int age = getAge(person);
@@ -108,6 +139,13 @@ public class MedicalRecordService {
     }
   }
 
+  /**
+   * Calculates the age of a person based on their medical record.
+   *
+   * @param person the person whose age is to be calculated
+   * @return the age of the person in years
+   * @throws IllegalArgumentException if the birthdate format is invalid
+   */
   public int getAge(Person person) {
     MedicalRecord medicalRecord = findByFirstNameAndLastName(
             person.getFirstName(),
@@ -122,4 +160,24 @@ public class MedicalRecordService {
     }
 
   }
+
+  // private methods to create exceptions
+
+  private boolean exists(String firstName, String lastName) {
+    return medicalRecordRepository.findByFirstNameAndLastName(firstName, lastName).isPresent();
+  }
+
+
+  private EntityNotFoundException medicalRecordNotFoundException(String firstName, String lastName) {
+    return new EntityNotFoundException("Medical record for: " + firstName + " " + lastName + " not exists.");
+  }
+
+  private EntityAlreadyExistsException medicalRecordAlreadyExists(String firstName, String lastName) {
+    return new EntityAlreadyExistsException("Medical record for: " + firstName + " " + lastName + " already exists.");
+  }
+
+  private EntityNotFoundException peronNotFoundException(String firstName, String lastName) {
+    return new EntityNotFoundException("Person with name " + firstName + " " + lastName + " does not exist.");
+  }
+
 }
