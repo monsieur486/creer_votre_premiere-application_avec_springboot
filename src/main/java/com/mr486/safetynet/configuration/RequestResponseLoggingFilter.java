@@ -84,9 +84,9 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
       log.error("Status: {}", response.getStatus());
       log.error("Response body: {}", body);
     } else {
-      log.debug("==== Outgoing request ====");
-      log.debug("Status: {}", response.getStatus());
-      log.debug("Response body: {}", body);
+      log.info("==== Outgoing request ====");
+      log.info("Status: {}", response.getStatus());
+      log.info("Response body: {}", body);
     }
 
   }
