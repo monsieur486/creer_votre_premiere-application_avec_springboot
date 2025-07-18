@@ -112,4 +112,11 @@ public class PersonRepositoryJson implements PersonRepository {
             .filter(person -> person.getAddress().equalsIgnoreCase(address))
             .toList();
   }
+
+  @Override
+  public List<Person> findByLastName(String lastName) {
+    return persons.stream()
+            .filter(person -> person.getLastName().equalsIgnoreCase(lastName))
+            .toList();
+  }
 }

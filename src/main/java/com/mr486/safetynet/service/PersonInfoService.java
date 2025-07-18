@@ -1,0 +1,35 @@
+package com.mr486.safetynet.service;
+
+import com.mr486.safetynet.dto.PersonInfoDto;
+import com.mr486.safetynet.model.Person;
+import com.mr486.safetynet.model.MedicalRecord;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class PersonInfoService {
+
+  private final PersonService personService;
+  private final MedicalRecordService medicalRecordService;
+
+  public List<PersonInfoDto> getPersonInfoByLastName(String lastName) {
+    List<Person> persons = personService.findByLastName(lastName);
+    return persons.stream().map(person -> {
+      MedicalRecord record = medicalRecordService.findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+      int age = medicalRecordService.getAge(person);
+      return new PersonInfoDto(
+              person.getFirstName(),
+              person.getLastName(),
+              person.getAddress(),
+              age,
+              person.getEmail(),
+              record.getMedications(),
+              record.getAllergies()
+      );
+    }).collect(Collectors.toList());
+  }
+}
