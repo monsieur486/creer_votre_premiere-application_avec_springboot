@@ -68,4 +68,12 @@ public interface PersonRepository {
    * @return a list of persons with the specified last name
    */
   List<Person> findByLastName(String lastName);
+
+  /**
+   * Finds all persons living in a specific city.
+   *
+   * @param city the city to search for
+   * @return a list of persons living in the specified city
+   */
+  List<Person> findByCity(String city);
 }

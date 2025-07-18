@@ -113,10 +113,29 @@ public class PersonRepositoryJson implements PersonRepository {
             .toList();
   }
 
+  /**
+   * Finds all persons with a specific last name.
+   *
+   * @param lastName the last name to search for
+   * @return a list of persons with the specified last name
+   */
   @Override
   public List<Person> findByLastName(String lastName) {
     return persons.stream()
             .filter(person -> person.getLastName().equalsIgnoreCase(lastName))
+            .toList();
+  }
+
+  /**
+   * Finds all persons living in a specific city.
+   *
+   * @param city the city to search for
+   * @return a list of persons living in the specified city
+   */
+  @Override
+  public List<Person> findByCity(String city) {
+    return persons.stream()
+            .filter(person -> person.getCity().equalsIgnoreCase(city))
             .toList();
   }
 }
