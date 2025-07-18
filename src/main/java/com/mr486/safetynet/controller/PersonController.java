@@ -1,6 +1,6 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.PersonDto;
+import com.mr486.safetynet.dto.request.PersonDto;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.service.PersonService;
 import jakarta.validation.Valid;

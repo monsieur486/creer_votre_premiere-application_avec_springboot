@@ -1,7 +1,7 @@
 package com.mr486.safetynet.tools;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mr486.safetynet.dto.DataBindingDto;
+import com.mr486.safetynet.dto.request.DataBindingDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,8 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.PersonInfoDto;
-import com.mr486.safetynet.model.Person;
+import com.mr486.safetynet.dto.request.PersonInfoDto;
 import com.mr486.safetynet.model.MedicalRecord;
+import com.mr486.safetynet.model.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

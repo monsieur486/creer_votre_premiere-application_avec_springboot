@@ -1,6 +1,6 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.CoverageResponseDto;
+import com.mr486.safetynet.dto.response.CoverageResponseDto;
 import com.mr486.safetynet.service.FireStationConverageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

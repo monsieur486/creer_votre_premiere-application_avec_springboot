@@ -1,4 +1,4 @@
-package com.mr486.safetynet.dto;
+package com.mr486.safetynet.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

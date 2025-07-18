@@ -1,11 +1,11 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.FirePersonDto;
-import com.mr486.safetynet.dto.FireResponseDto;
+import com.mr486.safetynet.dto.request.FirePersonDto;
+import com.mr486.safetynet.dto.response.FireResponseDto;
 import com.mr486.safetynet.exception.EntityNotFoundException;
-import com.mr486.safetynet.model.Person;
-import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.FireStation;
+import com.mr486.safetynet.model.MedicalRecord;
+import com.mr486.safetynet.model.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

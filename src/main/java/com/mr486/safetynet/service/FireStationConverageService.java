@@ -1,6 +1,6 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.CoverageResponseDto;
+import com.mr486.safetynet.dto.response.CoverageResponseDto;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.model.Person;
 import lombok.RequiredArgsConstructor;

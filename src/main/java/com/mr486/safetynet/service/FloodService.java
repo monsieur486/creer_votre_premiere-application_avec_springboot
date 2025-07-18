@@ -1,15 +1,18 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.FloodHouseholdDto;
-import com.mr486.safetynet.dto.FloodPersonDto;
-import com.mr486.safetynet.dto.FloodStationsResponseDto;
-import com.mr486.safetynet.model.Person;
-import com.mr486.safetynet.model.MedicalRecord;
+import com.mr486.safetynet.dto.request.FloodHouseholdDto;
+import com.mr486.safetynet.dto.request.FloodPersonDto;
+import com.mr486.safetynet.dto.response.FloodStationsResponseDto;
 import com.mr486.safetynet.model.FireStation;
+import com.mr486.safetynet.model.MedicalRecord;
+import com.mr486.safetynet.model.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

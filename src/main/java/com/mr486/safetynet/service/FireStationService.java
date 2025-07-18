@@ -1,6 +1,6 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.FireStationDto;
+import com.mr486.safetynet.dto.request.FireStationDto;
 import com.mr486.safetynet.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.exception.EntityNotFoundException;
 import com.mr486.safetynet.model.FireStation;

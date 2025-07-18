@@ -1,7 +1,7 @@
 package com.mr486.safetynet.configuration;
 
 
-import com.mr486.safetynet.dto.ErrorResponseDto;
+import com.mr486.safetynet.dto.response.ErrorResponseDto;
 import com.mr486.safetynet.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.exception.EntityNotFoundException;
 import org.springframework.http.HttpStatus;

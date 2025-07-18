@@ -1,10 +1,10 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.ChildAlertChildDto;
-import com.mr486.safetynet.dto.ChildAlertResponseDto;
-import com.mr486.safetynet.dto.HouseholdMemberDto;
-import com.mr486.safetynet.model.Person;
+import com.mr486.safetynet.dto.request.ChildAlertChildDto;
+import com.mr486.safetynet.dto.request.HouseholdMemberDto;
+import com.mr486.safetynet.dto.response.ChildAlertResponseDto;
 import com.mr486.safetynet.model.MedicalRecord;
+import com.mr486.safetynet.model.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

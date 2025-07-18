@@ -1,8 +1,10 @@
-package com.mr486.safetynet.dto;
+package com.mr486.safetynet.dto.response;
 
+import com.mr486.safetynet.dto.request.FloodHouseholdDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Data

@@ -1,6 +1,6 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.MedicalRecordDto;
+import com.mr486.safetynet.dto.request.MedicalRecordDto;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.service.MedicalRecordService;
 import jakarta.validation.Valid;
