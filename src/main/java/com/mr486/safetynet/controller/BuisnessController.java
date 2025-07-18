@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Controller for handling business logic related to safety net services.
- * Provides endpoints for retrieving information about children, community emails,
- * fire stations, flood information, person details, and phone alerts.
+ * BuisnessController handles various endpoints related to safety net services.
+ * It provides methods to retrieve coverage, child alerts, phone alerts, fire information,
+ * flood information, person info, and community emails.
  */
 @RestController
 @RequiredArgsConstructor
@@ -31,39 +31,6 @@ public class BuisnessController {
   private final FloodService floodService;
   private final PersonInfoService personInfoService;
   private final PhoneAlertService phoneAlertService;
-
-  /**
-   * Retrieves a list of children living at a specified address.
-   *
-   * @param address the address to search for children
-   * @return a ResponseEntity containing ChildAlertResponseDto with children details
-   */
-  @GetMapping(path = "/childAlert", produces = "application/json")
-  public ResponseEntity<ChildAlertResponseDto> getChildrenByAddress(@RequestParam String address) {
-    return ResponseEntity.ok(childAlertService.getChildrenByAddress(address));
-  }
-
-  /**
-   * Retrieves a set of email addresses for residents in a specified city.
-   *
-   * @param city the city to search for email addresses
-   * @return a ResponseEntity containing a set of email addresses
-   */
-  @GetMapping(path="/communityEmail", produces = "application/json")
-  public ResponseEntity<Set<String>> getCommunityEmails(@RequestParam String city) {
-    return ResponseEntity.ok(communityEmailService.getEmailsByCity(city));
-  }
-
-  /**
-   * Retrieves fire information for a specified address.
-   *
-   * @param address the address to search for fire information
-   * @return a ResponseEntity containing FireResponseDto with fire details
-   */
-  @GetMapping(path="/fire", produces = "application/json")
-  public ResponseEntity<FireResponseDto> getFireInfo(@RequestParam String address) {
-    return ResponseEntity.ok(fireService.getFireInfoByAddress(address));
-  }
 
   /**
    * Retrieves coverage information for a specific fire station.
@@ -81,12 +48,45 @@ public class BuisnessController {
   }
 
   /**
+   * Retrieves a list of children living at a specified address.
+   *
+   * @param address the address to search for children
+   * @return a ResponseEntity containing ChildAlertResponseDto with children details
+   */
+  @GetMapping(path = "/childAlert", produces = "application/json")
+  public ResponseEntity<ChildAlertResponseDto> getChildrenByAddress(@RequestParam String address) {
+    return ResponseEntity.ok(childAlertService.getChildrenByAddress(address));
+  }
+
+  /**
+   * Retrieves phone numbers for residents served by a specific fire station.
+   *
+   * @param firestation the number of the fire station to retrieve phone numbers for
+   * @return a ResponseEntity containing a set of phone numbers
+   */
+  @GetMapping(path = "/phoneAlert", produces = "application/json")
+  public ResponseEntity<Set<String>> getPhonesByStation(@RequestParam int firestation) {
+    return ResponseEntity.ok(phoneAlertService.getPhonesByStation(firestation));
+  }
+
+  /**
+   * Retrieves fire information for a specified address.
+   *
+   * @param address the address to search for fire information
+   * @return a ResponseEntity containing FireResponseDto with fire details
+   */
+  @GetMapping(path = "/fire", produces = "application/json")
+  public ResponseEntity<FireResponseDto> getFireInfo(@RequestParam String address) {
+    return ResponseEntity.ok(fireService.getFireInfoByAddress(address));
+  }
+
+  /**
    * Retrieves flood information for specified fire stations.
    *
    * @param stations a list of fire station numbers to retrieve flood information for
    * @return a ResponseEntity containing FloodStationsResponseDto with flood details
    */
-  @GetMapping(path="/flood/stations", produces = "application/json")
+  @GetMapping(path = "/flood/stations", produces = "application/json")
   public ResponseEntity<FloodStationsResponseDto> getFloodInfo(@RequestParam List<Integer> stations) {
     return ResponseEntity.ok(floodService.getHouseholdsByStations(stations));
   }
@@ -103,14 +103,14 @@ public class BuisnessController {
   }
 
   /**
-   * Retrieves phone numbers for residents served by a specific fire station.
+   * Retrieves a set of email addresses for residents in a specified city.
    *
-   * @param firestation the number of the fire station to retrieve phone numbers for
-   * @return a ResponseEntity containing a set of phone numbers
+   * @param city the city to search for email addresses
+   * @return a ResponseEntity containing a set of email addresses
    */
-  @GetMapping(path = "/phoneAlert", produces = "application/json")
-  public ResponseEntity<Set<String>> getPhonesByStation(@RequestParam int firestation) {
-    return ResponseEntity.ok(phoneAlertService.getPhonesByStation(firestation));
+  @GetMapping(path="/communityEmail", produces = "application/json")
+  public ResponseEntity<Set<String>> getCommunityEmails(@RequestParam String city) {
+    return ResponseEntity.ok(communityEmailService.getEmailsByCity(city));
   }
 
 }
