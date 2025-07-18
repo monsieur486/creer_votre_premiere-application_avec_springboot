@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service for handling fire-related operations.
+ * It retrieves fire station information and associated residents based on the address provided.
+ */
 @Service
 @RequiredArgsConstructor
 public class FireService {
@@ -20,6 +24,13 @@ public class FireService {
   private final MedicalRecordService medicalRecordService;
   private final FireStationService fireStationService;
 
+  /**
+   * Retrieves fire station information and associated residents for a given address.
+   *
+   * @param address the address to search for fire station and residents
+   * @return a FireResponseDto containing the fire station number and a list of residents
+   * @throws EntityNotFoundException if the fire station with the specified address is not found
+   */
   public FireResponseDto getFireInfoByAddress(String address) {
     FireStation station = fireStationService.findByAddress(address);
     if (station == null) {

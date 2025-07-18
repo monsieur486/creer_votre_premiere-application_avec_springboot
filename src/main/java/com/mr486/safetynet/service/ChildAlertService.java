@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Service for handling child alert operations.
+ * It retrieves children and their household members based on the address provided.
+ */
 @Service
 @RequiredArgsConstructor
 public class ChildAlertService {
@@ -19,6 +23,12 @@ public class ChildAlertService {
   private final PersonService personService;
   private final MedicalRecordService medicalRecordService;
 
+  /**
+   * Retrieves a list of children and their household members for a given address.
+   *
+   * @param address the address to search for children
+   * @return a ChildAlertResponseDto containing the list of children and their household members
+   */
   public ChildAlertResponseDto getChildrenByAddress(String address) {
     List<Person> persons = personService.findByAddress(address);
 

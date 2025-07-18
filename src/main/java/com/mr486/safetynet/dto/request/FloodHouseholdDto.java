@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * DTO representing a household affected by a flood.
+ * Contains the address and a list of residents.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

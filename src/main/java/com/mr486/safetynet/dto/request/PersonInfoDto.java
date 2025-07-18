@@ -6,6 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * DTO representing detailed information about a person.
+ * Contains personal details such as name, address, age, email,
+ * medications, and allergies.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

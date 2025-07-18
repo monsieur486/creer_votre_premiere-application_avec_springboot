@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * DTO representing the response for the Child Alert API.
+ * Contains a list of children with their details.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

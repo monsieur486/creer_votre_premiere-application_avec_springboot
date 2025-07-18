@@ -6,6 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * DTO representing a person for the Fire API.
+ * Contains personal details such as last name, phone number, age,
+ * medications, and allergies.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

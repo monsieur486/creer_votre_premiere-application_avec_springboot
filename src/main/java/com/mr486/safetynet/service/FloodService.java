@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Service for handling flood-related operations.
+ * It retrieves households and their residents based on the fire station numbers provided.
+ */
 @Service
 @RequiredArgsConstructor
 public class FloodService {
@@ -23,6 +27,13 @@ public class FloodService {
   private final PersonService personService;
   private final MedicalRecordService medicalRecordService;
 
+  /**
+   * Retrieves households and their residents based on the provided fire station numbers.
+   *
+   * @param stationNumbers a list of fire station numbers
+   * @return a FloodStationsResponseDto containing the households and their residents
+   * @throws IllegalArgumentException if any station number is invalid (null or negative)
+   */
   public FloodStationsResponseDto getHouseholdsByStations(List<Integer> stationNumbers) {
     Set<String> addresses = new HashSet<>();
     for(Integer stationNumber : stationNumbers) {

@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * DTO representing the response for the Flood Stations API.
+ * Contains a list of households affected by flooding.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
