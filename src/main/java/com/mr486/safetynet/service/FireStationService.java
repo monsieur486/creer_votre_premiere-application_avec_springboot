@@ -52,4 +52,10 @@ public interface FireStationService {
    * @return a list of fire stations with the specified station number
    */
   List<FireStation> findByStationNumber(int stationNumber);
+
+  /**
+   * Finds all fire stations in the repository.
+   * @return a list of all fire stations
+   */
+  List<FireStation> findAll();
 }

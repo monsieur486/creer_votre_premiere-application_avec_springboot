@@ -50,4 +50,11 @@ public interface FireStationRepository {
    * @return true if a fire station exists at the address, false otherwise
    */
   boolean exists(String address);
+
+  /**
+   * Finds all fire stations in the repository.
+   *
+   * @return a list of all fire stations
+   */
+  List<FireStation> findAll();
 }

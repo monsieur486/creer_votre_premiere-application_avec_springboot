@@ -106,4 +106,14 @@ public class FireStationRepositoryJson implements FireStationRepository {
     return fireStations.stream()
             .anyMatch(fireStation -> fireStation.getAddress().equalsIgnoreCase(address));
   }
+
+  /**
+   * Finds all fire stations in the repository.
+   *
+   * @return a list of all FireStation entities.
+   */
+  @Override
+  public List<FireStation> findAll() {
+    return new ArrayList<>(fireStations);
+  }
 }

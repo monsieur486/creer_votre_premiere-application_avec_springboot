@@ -102,6 +102,15 @@ public class FireStationServiceImpl implements FireStationService {
     return fireStationRepository.save(updatedFireStation);
   }
 
+  /**
+   * Retrieves all fire stations.
+   *
+   * @return a list of all FireStation entities.
+   */
+  public List<FireStation> findAll() {
+    return fireStationRepository.findAll();
+  }
+
 
   private boolean exists(String address) {
     return fireStationRepository.exists(address);

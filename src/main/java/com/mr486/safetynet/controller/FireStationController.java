@@ -73,4 +73,16 @@ public class FireStationController {
     return ResponseEntity.ok(fireStation);
   }
 
+
+  /**
+   * Retrieves all fire stations.
+   *
+   * @return ResponseEntity containing an iterable of all FireStation objects.
+   */
+  @GetMapping(path = "/all", produces = "application/json")
+  public ResponseEntity<Iterable<FireStation>> getAllFireStations() {
+    Iterable<FireStation> fireStations = fireStationService.findAll();
+    return ResponseEntity.ok(fireStations);
+  }
+
 }
