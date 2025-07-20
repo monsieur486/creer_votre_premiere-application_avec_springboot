@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 class PersonRepositoryJsonTest {
 
@@ -25,8 +24,6 @@ class PersonRepositoryJsonTest {
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    List<Person> personList = List.of();
-    when(jsonService.loadPersons()).thenReturn(personList);
   }
 
   @Test
