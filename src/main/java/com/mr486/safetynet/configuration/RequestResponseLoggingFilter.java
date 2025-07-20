@@ -79,9 +79,16 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
   private void logResponse(ContentCachingResponseWrapper response) {
     String body = new String(response.getContentAsByteArray(), StandardCharsets.UTF_8);
 
-    log.info("==== Outgoing request ====");
-    log.info("Status: {}", response.getStatus());
-    log.info("Response body: {}", body);
+    if (response.getStatus() >= 400) {
+      log.error("==== Outgoing request ====");
+      log.error("Status: {}", response.getStatus());
+      log.error("Response body: {}", body);
+    } else {
+      log.info("==== Outgoing request ====");
+      log.info("Status: {}", response.getStatus());
+      log.info("Response body: {}", body);
+    }
+
   }
 
   /**
