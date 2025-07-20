@@ -2,7 +2,7 @@ package com.mr486.safetynet.service.impl;
 
 import com.mr486.safetynet.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.exception.EntityNotFoundException;
-import com.mr486.safetynet.dto.PersonDto;
+import com.mr486.safetynet.dto.request.PersonDto;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;

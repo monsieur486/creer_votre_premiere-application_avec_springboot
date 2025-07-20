@@ -1,4 +1,4 @@
-package com.mr486.safetynet.dto;
+package com.mr486.safetynet.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

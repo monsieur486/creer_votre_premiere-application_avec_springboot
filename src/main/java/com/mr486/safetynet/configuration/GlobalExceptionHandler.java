@@ -1,9 +1,9 @@
 package com.mr486.safetynet.configuration;
 
 
+import com.mr486.safetynet.dto.response.ErrorResponseDto;
 import com.mr486.safetynet.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.exception.EntityNotFoundException;
-import com.mr486.safetynet.dto.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -94,7 +94,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(NoHandlerFoundException.class)
   public ResponseEntity<ErrorResponseDto> handleNoHandlerFoundException(NoHandlerFoundException ex) {
     ErrorResponseDto errorResponse = new ErrorResponseDto(
-            "PAGE NOT FOUND " + ex.getRequestURL(),
+            "URL NOT FOUND " + ex.getRequestURL(),
             404
     );
     return ResponseEntity

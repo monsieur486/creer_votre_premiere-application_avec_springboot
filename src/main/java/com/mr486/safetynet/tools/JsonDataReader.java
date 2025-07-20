@@ -2,7 +2,7 @@ package com.mr486.safetynet.tools;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mr486.safetynet.configuration.AppConfiguation;
-import com.mr486.safetynet.dto.DataBindingDto;
+import com.mr486.safetynet.dto.request.DataBindingDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
