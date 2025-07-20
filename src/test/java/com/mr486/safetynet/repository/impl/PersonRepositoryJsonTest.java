@@ -165,7 +165,7 @@ class PersonRepositoryJsonTest {
     Person person = new Person("John", "Doe", "address", "city", "zip", "phone", "email");
     personRepositoryJson.save(person);
 
-    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("joHN", "dOE");
+    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("JOHn", "dOE");
 
     assertTrue(result.isPresent());
     assertEquals("John", result.get().getFirstName());
