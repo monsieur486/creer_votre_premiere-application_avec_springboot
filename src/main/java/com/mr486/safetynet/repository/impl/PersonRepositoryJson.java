@@ -107,4 +107,14 @@ public class PersonRepositoryJson implements PersonRepository {
             .filter(person -> person.getAddress().equalsIgnoreCase(address))
             .toList();
   }
+
+  /**
+   * Retrieves all persons from the repository.
+   *
+   * @return a list of all persons.
+   */
+  @Override
+  public List<Person> findAll() {
+    return new ArrayList<>(persons);
+  }
 }

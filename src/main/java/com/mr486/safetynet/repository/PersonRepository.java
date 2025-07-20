@@ -53,4 +53,11 @@ public interface PersonRepository {
    * @return a list of persons living at the specified address
    */
   List<Person> findByAddress(String address);
+
+  /**
+   * Finds all persons in the repository.
+   *
+   * @return a list of all persons
+   */
+  List<Person> findAll();
 }
