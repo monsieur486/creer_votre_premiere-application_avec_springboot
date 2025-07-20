@@ -30,11 +30,6 @@ public class FireStationServiceImpl implements FireStationService {
    * @return an Optional containing the FireStation if found, or empty if not found.
    */
   public FireStation findByAddress(String address) {
-    if (!exists(address)) {
-      log.error("Fire station not found at address: {}", address);
-      throw fireStationNotFoundException(address);
-    }
-    log.info("Finding fire station at address: {}", address);
     return fireStationRepository.findByAddress(address)
             .orElseThrow(() -> fireStationNotFoundException(address));
   }

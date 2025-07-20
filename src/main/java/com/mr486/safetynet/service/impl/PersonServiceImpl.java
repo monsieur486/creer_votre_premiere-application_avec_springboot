@@ -31,12 +31,8 @@ public class PersonServiceImpl {
    * @throws EntityNotFoundException if the person does not exist.
    */
   public Person findByFirstNameAndLastName(String firstName, String lastName) {
-    if (!exists(firstName, lastName)) {
-      throw peronNotFoundException(firstName, lastName);
-    }
-
     return personRepository.findByFirstNameAndLastName(firstName, lastName)
-            .orElseThrow(() -> peronNotFoundException(firstName, lastName));
+            .orElseThrow(() -> personNotFoundException(firstName, lastName));
   }
 
   /**
@@ -60,7 +56,7 @@ public class PersonServiceImpl {
    */
   public void delete(String firstName, String lastName) {
     if (!exists(firstName, lastName)) {
-      throw peronNotFoundException(firstName, lastName);
+      throw personNotFoundException(firstName, lastName);
     }
     personRepository.delete(firstName, lastName);
   }
@@ -75,7 +71,7 @@ public class PersonServiceImpl {
    */
   public Person update(String firstName, String lastName, PersonDto personDto) {
     if (!exists(firstName, lastName)) {
-      throw peronNotFoundException(firstName, lastName);
+      throw personNotFoundException(firstName, lastName);
     }
     Person updatedPerson = new Person(
             firstName,
@@ -107,7 +103,7 @@ public class PersonServiceImpl {
             "Person already exists: " + firstName + " " + lastName);
   }
 
-  private EntityNotFoundException peronNotFoundException(String firstName, String lastName) {
+  private EntityNotFoundException personNotFoundException(String firstName, String lastName) {
     return new EntityNotFoundException(
             "Person not found: " + firstName + " " + lastName);
   }
