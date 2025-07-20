@@ -6,6 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Data Transfer Object (DTO) for a person's contact information.
+ * This class is used to transfer data related to a person's address, city, zip code,
+ * phone number, and email address.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

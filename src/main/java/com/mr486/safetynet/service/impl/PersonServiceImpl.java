@@ -22,10 +22,14 @@ public class PersonServiceImpl {
 
   private final PersonRepository personRepository;
 
+
   /**
-   * Retrieves all persons from the repository.
+   * Finds a person by their first and last name.
    *
-   * @return a list of all persons.
+   * @param firstName the first name of the person to find.
+   * @param lastName  the last name of the person to find.
+   * @return the found Person entity.
+   * @throws EntityNotFoundException if the person does not exist.
    */
   public Person findByFirstNameAndLastName(String firstName, String lastName) {
     if(!exists(firstName, lastName)) {
@@ -49,6 +53,12 @@ public class PersonServiceImpl {
     return personRepository.save(person);
   }
 
+  /**
+   * Deletes a person by their first and last name.
+   *
+   * @param firstName the first name of the person to delete.
+   * @param lastName  the last name of the person to delete.
+   */
   public void delete(String firstName, String lastName) {
     if (!exists(firstName, lastName)) {
       throw peronNotFoundException(firstName, lastName);
@@ -56,6 +66,14 @@ public class PersonServiceImpl {
     personRepository.delete(firstName, lastName);
   }
 
+  /**
+   * Updates an existing person with new details.
+   *
+   * @param firstName the first name of the person to update.
+   * @param lastName  the last name of the person to update.
+   * @param personDto the DTO containing updated person details.
+   * @return the updated Person entity.
+   */
   public Person update(String firstName, String lastName, PersonDto personDto) {
     if (!exists(firstName, lastName)) {
       throw peronNotFoundException(firstName, lastName);
@@ -73,6 +91,12 @@ public class PersonServiceImpl {
     return personRepository.save(updatedPerson);
   }
 
+  /**
+   * Finds persons by their address.
+   *
+   * @param address the address to search for.
+   * @return a list of persons living at the specified address.
+   */
   public List<Person> findByAddress(String address) {
     return personRepository.findByAddress(address);
   }

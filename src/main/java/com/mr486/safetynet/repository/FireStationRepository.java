@@ -11,10 +11,12 @@ import java.util.Optional;
  */
 public interface FireStationRepository {
 
+
   /**
-   * Finds all fire stations in the repository.
+   * Finds a fire station by its address.
    *
-   * @return a list of all fire stations
+   * @param address the address of the fire station to find
+   * @return an Optional containing the FireStation if found, or empty if not found
    */
   Optional<FireStation> findByAddress(String address);
 

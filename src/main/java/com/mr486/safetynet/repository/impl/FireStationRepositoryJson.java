@@ -46,17 +46,30 @@ public class FireStationRepositoryJson implements FireStationRepository {
             .findFirst();
   }
 
+
   /**
-   * Saves a fire station to the repository.
+   * Saves a fire station entity.
+   * If the fire station already exists by address, it updates the existing one.
+   * If it does not exist, it adds the new fire station to the list.
    *
-   * @param fireStation the fire station to save.
+   * @param fireStation the FireStation entity to save.
+   *
    * @return the saved FireStation entity.
    */
   @Override
   public FireStation save(FireStation fireStation) {
-    fireStations.add(fireStation);
+    // Check if the fire station already exists by address
+    Optional<FireStation> existingFireStation = findByAddress(fireStation.getAddress());
+    // If it exists, update the existing one
+    if (existingFireStation.isPresent()) {
+      FireStation existing = existingFireStation.get();
+      existing.setStation(fireStation.getStation());
+      return existing;
+    } else {
+      // If it does not exist, add the new fire station
+      fireStations.add(fireStation);
+    }
     return fireStation;
-
   }
 
   /**

@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of the PersonRepository interface that uses JSON files for data storage.
+ * This class provides methods to find, save, delete, and check the existence of persons.
+ * It initializes the repository by loading person data from a JSON file upon bean creation.
+ */
 @Repository
 @RequiredArgsConstructor
 public class PersonRepositoryJson implements PersonRepository {
@@ -48,8 +53,20 @@ public class PersonRepositoryJson implements PersonRepository {
    */
   @Override
   public Person save(Person person) {
-    persons.add(person);
+    // Check if a person with the same first and last name already exists
+    Optional<Person> existingPerson = findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+    if (existingPerson.isPresent()) {
+      // If the person exists, update their address, city, and zip
+      Person existing = existingPerson.get();
+      existing.setAddress(person.getAddress());
+      existing.setCity(person.getCity());
+      existing.setZip(person.getZip());
+    } else {
+      // If the person does not exist, add them to the list
+      persons.add(person);
+    }
     return person;
+
   }
 
   /**

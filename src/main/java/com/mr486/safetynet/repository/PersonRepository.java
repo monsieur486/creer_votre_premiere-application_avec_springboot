@@ -12,9 +12,45 @@ import java.util.Optional;
  */
 public interface PersonRepository {
 
+  /**
+   * Finds a person by their first and last name.
+   *
+   * @param firstName the first name of the person
+   * @param lastName  the last name of the person
+   * @return an Optional containing the found person, or empty if not found
+   */
   Optional<Person> findByFirstNameAndLastName(String firstName, String lastName);
+
+  /**
+   * Saves a person to the repository.
+   *
+   * @param person the person to save
+   * @return the saved person
+   */
   Person save(Person person);
+
+  /**
+   * Deletes a person by their first and last name.
+   *
+   * @param firstName the first name of the person to delete
+   * @param lastName  the last name of the person to delete
+   */
   void delete(String firstName, String lastName);
+
+  /**
+   * Checks if a person exists by their first and last name.
+   *
+   * @param firstName the first name to check
+   * @param lastName  the last name to check
+   * @return true if a person with the specified first and last name exists, false otherwise
+   */
   boolean exists(String firstName, String lastName);
+
+  /**
+   * Finds persons by their address.
+   *
+   * @param address the address to search for
+   * @return a list of persons living at the specified address
+   */
   List<Person> findByAddress(String address);
 }

@@ -7,7 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Represents a fire station entity with an address and a station number.
+ * Data Transfer Object (DTO) for a fire station.
+ * This class is used to transfer data related to a fire station's station number.
  */
 @Data
 @NoArgsConstructor

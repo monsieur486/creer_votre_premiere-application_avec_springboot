@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service interface for managing FireStation entities.
@@ -88,18 +89,16 @@ public class FireStationServiceImpl implements FireStationService {
    * @return an Optional containing the updated FireStation if the update was successful, or empty if not found.
    */
   public FireStation update(String address, FireStationDto fireStationDto){
-    if( !exists(address)) {
+    if(!exists(address)) {
       log.error("Attempt to update a non-existing fire station at address: {}", address);
       throw fireStationNotFoundException(address);
     }
-    FireStation updatedFireStation = new FireStation(
-        address,
-        fireStationDto.getStation()
-    );
+    FireStation existingFireStation = findByAddress(address);
     log.info("Updating fire station at address: {}", address);
-    log.debug("Deleting existing fire station at address: {}", address);
-    fireStationRepository.delete(address);
-    log.debug("Saving updated fire station at address: {}", address);
+    FireStation updatedFireStation = FireStation.builder()
+        .address(existingFireStation.getAddress())
+        .station(fireStationDto.getStation())
+        .build();
     return fireStationRepository.save(updatedFireStation);
   }
 
