@@ -24,16 +24,6 @@ public class FireStationServiceImpl implements FireStationService {
   private final FireStationRepository fireStationRepository;
 
   /**
-   * Retrieves all fire stations.
-   *
-   * @return a list of all fire stations.
-   */
-  public List<FireStation> findAll() {
-    log.info("Retrieving all fire stations");
-    return fireStationRepository.findAll();
-  }
-
-  /**
    * Finds a fire station by its address.
    *
    * @param address the address of the fire station.
@@ -113,12 +103,7 @@ public class FireStationServiceImpl implements FireStationService {
     return fireStationRepository.save(updatedFireStation);
   }
 
-  /**
-   * Checks if a fire station exists by its address.
-   *
-   * @param address the address to check.
-   * @return true if a fire station exists at the specified address, false otherwise.
-   */
+
   private boolean exists(String address) {
     return fireStationRepository.exists(address);
   }

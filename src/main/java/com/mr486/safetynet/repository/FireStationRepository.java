@@ -12,48 +12,40 @@ import java.util.Optional;
 public interface FireStationRepository {
 
   /**
-   * Retrieves all fire stations.
+   * Finds all fire stations in the repository.
    *
-   * @return a list of all fire stations.
-   */
-  List<FireStation> findAll();
-
-  /**
-   * Finds a fire station by its address.
-   *
-   * @param address the address of the fire station.
-   * @return an Optional containing the FireStation if found, or empty if not found.
+   * @return a list of all fire stations
    */
   Optional<FireStation> findByAddress(String address);
 
   /**
-   * Saves a fire station entity.
+   * Saves a fire station to the repository.
    *
-   * @param fireStation the fire station to save.
-   * @return the saved FireStation entity.
+   * @param fireStation the fire station to save
+   * @return the saved fire station
    */
   FireStation save(FireStation fireStation);
 
   /**
    * Deletes a fire station by its address.
    *
-   * @param address the address of the fire station to delete.
+   * @param address the address of the fire station to delete
    */
   void delete(String address);
 
   /**
    * Finds fire stations by their station number.
    *
-   * @param stationNumber the station number to search for.
-   * @return a list of FireStation entities with the specified station number.
+   * @param stationNumber the station number to search for
+   * @return a list of fire stations with the specified station number
    */
   List<FireStation> findByStationNumber(int stationNumber);
 
   /**
-   * Checks if a fire station exists by its address.
+   * Checks if a fire station exists at the specified address.
    *
-   * @param address the address to check.
-   * @return true if a fire station exists at the specified address, false otherwise.
+   * @param address the address to check
+   * @return true if a fire station exists at the address, false otherwise
    */
   boolean exists(String address);
 }

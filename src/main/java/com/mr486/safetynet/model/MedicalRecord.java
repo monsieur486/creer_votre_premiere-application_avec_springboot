@@ -36,10 +36,10 @@ public class MedicalRecord {
   /**
    * A list of medications the person is taking.
    */
-  private ArrayList<String> medications;
+  private ArrayList<String> medications= new ArrayList<>();
 
   /**
    * A list of allergies the person has.
    */
-  private ArrayList<String> allergies;
+  private ArrayList<String> allergies= new ArrayList<>();
 }

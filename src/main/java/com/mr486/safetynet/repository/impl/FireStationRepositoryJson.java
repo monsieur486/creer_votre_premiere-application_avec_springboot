@@ -34,16 +34,6 @@ public class FireStationRepositoryJson implements FireStationRepository {
   }
 
   /**
-   * Retrieves all fire stations from the repository.
-   *
-   * @return a list of all fire stations.
-   */
-  @Override
-  public List<FireStation> findAll() {
-    return fireStations;
-  }
-
-  /**
    * Finds a fire station by its address.
    *
    * @param address the address of the fire station to find.

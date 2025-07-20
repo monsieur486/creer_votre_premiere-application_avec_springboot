@@ -11,45 +11,53 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service implementation for managing Person entities.
+ * This class provides methods to find, save, delete, and update persons,
+ * as well as to find persons by their address.
+ */
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class PersonServiceImpl {
 
   private final PersonRepository personRepository;
 
+  /**
+   * Retrieves all persons from the repository.
+   *
+   * @return a list of all persons.
+   */
   public Person findByFirstNameAndLastName(String firstName, String lastName) {
     if(!exists(firstName, lastName)) {
-      log.error("Person not found: {} {}", firstName, lastName);
       throw peronNotFoundException(firstName, lastName);
     }
 
-    log.info("Finding person: {} {}", firstName, lastName);
     return personRepository.findByFirstNameAndLastName(firstName, lastName)
             .orElseThrow(() -> peronNotFoundException(firstName, lastName));
   }
 
+  /**
+   * Saves a new person to the repository.
+   *
+   * @param person the person to save.
+   * @return the saved Person entity.
+   */
   public Person save(Person person) {
     if (exists(person.getFirstName(), person.getLastName())) {
-      log.error("Attempt to save a duplicate person: {} {}", person.getFirstName(), person.getLastName());
       throw personDuplicateException(person.getFirstName(), person.getLastName());
     }
-    log.info("Saving person: {} {}", person.getFirstName(), person.getLastName());
     return personRepository.save(person);
   }
 
   public void delete(String firstName, String lastName) {
     if (!exists(firstName, lastName)) {
-      log.error("Attempt to delete a non-existing person: {} {}", firstName, lastName);
       throw peronNotFoundException(firstName, lastName);
     }
-    log.info("Deleting person: {} {}", firstName, lastName);
     personRepository.delete(firstName, lastName);
   }
 
   public Person update(String firstName, String lastName, PersonDto personDto) {
     if (!exists(firstName, lastName)) {
-      log.error("Attempt to update a non-existing person: {} {}", firstName, lastName);
       throw peronNotFoundException(firstName, lastName);
     }
     Person updatedPerson = new Person(
@@ -61,15 +69,11 @@ public class PersonServiceImpl {
             personDto.getPhone(),
             personDto.getEmail()
     );
-    log.info("Updating person: {} {}", firstName, lastName);
-    log.debug("Deleting old person data: {} {}", firstName, lastName);
     personRepository.delete(firstName, lastName);
-    log.debug("Saving updated person data: {} {}", firstName, lastName);
     return personRepository.save(updatedPerson);
   }
 
   public List<Person> findByAddress(String address) {
-    log.info("Finding persons by address: {}", address);
     return personRepository.findByAddress(address);
   }
 
