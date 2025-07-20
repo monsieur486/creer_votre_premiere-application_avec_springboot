@@ -1,7 +1,7 @@
-package com.mr486.safetynet.service;
+package com.mr486.safetynet.service.impl;
 
-import com.mr486.safetynet.configuration.exception.EntityAlreadyExistsException;
-import com.mr486.safetynet.configuration.exception.EntityNotFoundException;
+import com.mr486.safetynet.exception.EntityAlreadyExistsException;
+import com.mr486.safetynet.exception.EntityNotFoundException;
 import com.mr486.safetynet.dto.PersonDto;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.PersonRepository;
@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class PersonService {
+public class PersonServiceImpl {
 
   private final PersonRepository personRepository;
 

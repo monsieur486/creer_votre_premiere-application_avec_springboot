@@ -2,7 +2,7 @@ package com.mr486.safetynet.controller;
 
 import com.mr486.safetynet.dto.FireStationDto;
 import com.mr486.safetynet.model.FireStation;
-import com.mr486.safetynet.service.FireStationService;
+import com.mr486.safetynet.service.impl.FireStationServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/firestation")
 public class FireStationController {
 
-  private final FireStationService fireStationService;
+  private final FireStationServiceImpl fireStationServiceImpl;
 
   /**
    * Adds a new fire station.
@@ -29,7 +29,7 @@ public class FireStationController {
    */
   @PostMapping(path = "", produces = "application/json")
   public ResponseEntity<FireStation> addFireStation(@RequestBody @Valid FireStation fireStation) {
-    FireStation savedFireStation = fireStationService.save(fireStation);
+    FireStation savedFireStation = fireStationServiceImpl.save(fireStation);
     return ResponseEntity.status(org.springframework.http.HttpStatus.CREATED).body(savedFireStation);
   }
 
@@ -45,7 +45,7 @@ public class FireStationController {
   public ResponseEntity<FireStation> updateFireStation(
           @PathVariable String address,
           @RequestBody @Valid FireStationDto fireStationDto) {
-    FireStation updatedFireStation = fireStationService.update(address, fireStationDto);
+    FireStation updatedFireStation = fireStationServiceImpl.update(address, fireStationDto);
     return ResponseEntity.ok(updatedFireStation);
   }
 
@@ -57,7 +57,7 @@ public class FireStationController {
    */
   @DeleteMapping(path = "/{address}", produces = "application/json")
   public ResponseEntity<Void> deleteFireStation(@PathVariable String address) {
-    fireStationService.delete(address);
+    fireStationServiceImpl.delete(address);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
@@ -69,7 +69,7 @@ public class FireStationController {
    */
   @GetMapping(path = "/{address}", produces = "application/json")
   public ResponseEntity<FireStation> getFireStationByAddress(@PathVariable String address) {
-    FireStation fireStation = fireStationService.findByAddress(address);
+    FireStation fireStation = fireStationServiceImpl.findByAddress(address);
     return ResponseEntity.ok(fireStation);
   }
 
@@ -80,7 +80,7 @@ public class FireStationController {
    */
   @GetMapping(path = "/all", produces = "application/json")
   public ResponseEntity<Iterable<FireStation>> getAllFireStations() {
-    Iterable<FireStation> fireStations = fireStationService.findAll();
+    Iterable<FireStation> fireStations = fireStationServiceImpl.findAll();
     return ResponseEntity.ok(fireStations);
   }
 
