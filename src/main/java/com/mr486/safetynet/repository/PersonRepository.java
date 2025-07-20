@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public interface PersonRepository {
 
-  List<Person> findAll();
-
   Optional<Person> findByFirstNameAndLastName(String firstName, String lastName);
 
   Person save(Person person);

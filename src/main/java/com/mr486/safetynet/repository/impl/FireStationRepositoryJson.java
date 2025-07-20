@@ -2,7 +2,7 @@ package com.mr486.safetynet.repository.impl;
 
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.repository.FireStationRepository;
-import com.mr486.safetynet.tools.JsonDataReader;
+import com.mr486.safetynet.tools.JsonService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -21,22 +21,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FireStationRepositoryJson implements FireStationRepository {
 
-  private final JsonDataReader jsonDataReader;
-  private List<FireStation> fireStations;
+  private final JsonService jsonService;
+  private List<FireStation> fireStations = new ArrayList<>();
 
   /**
    * Initializes the repository by loading fire station data from a JSON file.
-   * This method is called after the bean is constructed, ensuring that the
-   * fireStations list is populated with data before any operations are performed.
+   * This method is called after the bean's properties have been set.
    */
   @PostConstruct
   public void init() {
-    fireStations = new ArrayList<>();
-    try {
-      fireStations = jsonDataReader.loadData().getFirestations();
-    } catch (Exception e) {
-      throw new RuntimeException("Failed to load fire stations from JSON", e);
-    }
+    fireStations = jsonService.loadFireStations();
   }
 
   /**

@@ -1,8 +1,8 @@
 package com.mr486.safetynet.service.impl;
 
+import com.mr486.safetynet.dto.request.PersonDto;
 import com.mr486.safetynet.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.exception.EntityNotFoundException;
-import com.mr486.safetynet.dto.request.PersonDto;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +17,6 @@ import java.util.List;
 public class PersonServiceImpl {
 
   private final PersonRepository personRepository;
-
-  public List<Person> findAll() {
-    log.info("Retrieving all persons");
-    return  personRepository.findAll();
-  }
 
   public Person findByFirstNameAndLastName(String firstName, String lastName) {
     if(!exists(firstName, lastName)) {

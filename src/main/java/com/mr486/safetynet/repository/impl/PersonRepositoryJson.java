@@ -2,7 +2,7 @@ package com.mr486.safetynet.repository.impl;
 
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.PersonRepository;
-import com.mr486.safetynet.tools.JsonDataReader;
+import com.mr486.safetynet.tools.JsonService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -15,8 +15,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PersonRepositoryJson implements PersonRepository {
 
-  private final JsonDataReader jsonDataReader;
-  private List<Person> persons;
+  private final JsonService jsonService;
+  private List<Person> persons = new ArrayList<>();
 
   /**
    * Initializes the repository by loading fire station data from a JSON file.
@@ -25,17 +25,7 @@ public class PersonRepositoryJson implements PersonRepository {
    */
   @PostConstruct
   public void init() {
-    persons = new ArrayList<>();
-    try {
-      persons = jsonDataReader.loadData().getPersons();
-    } catch (Exception e) {
-      throw new RuntimeException("Failed to load persons from JSON", e);
-    }
-  }
-
-  @Override
-  public List<Person> findAll() {
-    return persons;
+    persons = jsonService.loadPersons();
   }
 
   @Override
