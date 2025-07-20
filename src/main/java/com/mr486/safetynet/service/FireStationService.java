@@ -7,10 +7,9 @@ import java.util.List;
 
 public interface FireStationService {
 
-  List<FireStation> findAll();
-  public FireStation findByAddress(String address);
-  public FireStation save(FireStation fireStation);
-  public void delete(String address);
-  public FireStation update(String address, FireStationDto fireStationDto);
-  public List<FireStation> findByStationNumber(int stationNumber);
+  <Optional> FireStation findByAddress(String address);
+  FireStation save(FireStation fireStation);
+  void delete(String address);
+  FireStation update(String address, FireStationDto fireStationDto);
+  List<FireStation> findByStationNumber(int stationNumber);
 }
