@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 class PersonRepositoryJsonTest {
 
@@ -97,13 +98,6 @@ class PersonRepositoryJsonTest {
   }
 
   @Test
-  void delete_shouldDoNothing_whenPersonDoesNotExist() {
-    // Ne doit pas lever d'exception
-    personRepositoryJson.delete("Ghost", "Person");
-    assertTrue(personRepositoryJson.findAll().isEmpty());
-  }
-
-  @Test
   void exists_shouldReturnTrue_whenPersonExists() {
     Person person = new Person("Charlie", "Chaplin", "address", "city", "zip", "phone", "email");
     personRepositoryJson.save(person);
@@ -136,4 +130,64 @@ class PersonRepositoryJsonTest {
     List<Person> result = personRepositoryJson.findByAddress("No Address");
     assertTrue(result.isEmpty());
   }
+
+  @Test
+  void init_shouldLoadPersonsFromJsonService() {
+    List<Person> loaded = List.of(
+            new Person("John", "Doe", "address", "city", "zip", "phone", "email")
+    );
+    when(jsonService.loadPersons()).thenReturn(loaded);
+
+    personRepositoryJson.init();
+
+    List<Person> result = personRepositoryJson.findAll();
+    assertEquals(1, result.size());
+    assertEquals("John", result.get(0).getFirstName());
+  }
+
+  @Test
+  void save_shouldNotUpdatePhoneOrEmail_whenPersonAlreadyExists() {
+    Person person = new Person("John", "Doe", "address", "city", "zip", "oldPhone", "oldEmail");
+    personRepositoryJson.save(person);
+
+    Person updated = new Person("John", "Doe", "newAddress", "newCity", "newZip", "newPhone", "newEmail");
+    personRepositoryJson.save(updated);
+
+    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("John", "Doe");
+    assertTrue(result.isPresent());
+    // Les champs phone et email ne doivent pas être modifiés
+    assertEquals("oldPhone", result.get().getPhone());
+    assertEquals("oldEmail", result.get().getEmail());
+  }
+
+  @Test
+  void findByFirstNameAndLastName_shouldReturnPerson_whenCaseIsDifferent() {
+    Person person = new Person("John", "Doe", "address", "city", "zip", "phone", "email");
+    personRepositoryJson.save(person);
+
+    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("joHN", "dOE");
+
+    assertTrue(result.isPresent());
+    assertEquals("John", result.get().getFirstName());
+    assertEquals("Doe", result.get().getLastName());
+  }
+
+  @Test
+  void exists_shouldReturnTrue_whenCaseIsDifferent() {
+    Person person = new Person("John", "Doe", "address", "city", "zip", "phone", "email");
+    personRepositoryJson.save(person);
+
+    assertTrue(personRepositoryJson.exists("joHN", "dOE"));
+  }
+
+  @Test
+  void delete_shouldRemovePerson_whenCaseIsDifferent() {
+    Person person = new Person("John", "Doe", "address", "city", "zip", "phone", "email");
+    personRepositoryJson.save(person);
+
+    personRepositoryJson.delete("joHN", "dOE");
+
+    assertFalse(personRepositoryJson.exists("John", "Doe"));
+  }
+
 }
