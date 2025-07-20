@@ -210,7 +210,10 @@
                 <configuration>
                     <excludes>
                         <exclude>**/configuration/*</exclude>
-                        <exclude>**/*Dto.java</exclude>
+                        <exclude>**/model/*</exclude>
+                        <exclude>**/request/*</exclude>
+                        <exclude>**/response/*</exclude>
+                        <exclude>**/exception/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
