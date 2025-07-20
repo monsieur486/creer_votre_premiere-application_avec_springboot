@@ -96,6 +96,15 @@ public class PersonServiceImpl {
     return personRepository.findByAddress(address);
   }
 
+  /**
+   * Finds all persons in the repository.
+   *
+   * @return a list of all persons.
+   */
+  public List<Person> findAll() {
+    return personRepository.findAll();
+  }
+
   // Private methods for exception handling and existence checks
 
   private EntityAlreadyExistsException personDuplicateException(String firstName, String lastName) {
