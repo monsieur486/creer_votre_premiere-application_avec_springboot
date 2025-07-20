@@ -136,4 +136,26 @@ class FireStationRepositoryJsonTest {
     assertTrue(result.contains(fireStation1));
     assertTrue(result.contains(fireStation2));
   }
+
+  @Test
+  void findByAddress_shouldReturnFireStation_whenCaseIsDifferent() {
+    FireStation fireStation = new FireStation("123 Main St", 1);
+    fireStationRepositoryJson.save(fireStation);
+
+    Optional<FireStation> result = fireStationRepositoryJson.findByAddress("123 MAIN st");
+
+    assertTrue(result.isPresent());
+    assertEquals("123 Main St", result.get().getAddress());
+  }
+
+
+  @Test
+  void findByStationNumber_shouldReturnEmptyList_whenNoFireStationWithNumber() {
+    FireStation fireStation = new FireStation("123 Main St", 1);
+    fireStationRepositoryJson.save(fireStation);
+
+    List<FireStation> result = fireStationRepositoryJson.findByStationNumber(99);
+
+    assertTrue(result.isEmpty());
+  }
 }
