@@ -24,7 +24,6 @@ public class FireStationController {
    * Adds a new fire station.
    *
    * @param fireStation The FireStation object to be added. Must be valid.
-   *
    * @return ResponseEntity containing the created FireStation object with status CREATED.
    */
   @PostMapping(path = "", produces = "application/json")
@@ -36,9 +35,8 @@ public class FireStationController {
   /**
    * Updates an existing fire station.
    *
-   * @param address The address of the fire station to be updated.
+   * @param address        The address of the fire station to be updated.
    * @param fireStationDto The FireStationDto containing the updated information.
-   *
    * @return ResponseEntity containing the updated FireStation object.
    */
   @PutMapping(path = "/{address}", produces = "application/json")

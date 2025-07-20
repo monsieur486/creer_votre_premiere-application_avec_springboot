@@ -39,7 +39,7 @@ public interface FireStationService {
   /**
    * Updates an existing fire station with the provided details.
    *
-   * @param address the address of the fire station to update
+   * @param address        the address of the fire station to update
    * @param fireStationDto the new details for the fire station
    * @return the updated fire station
    */
@@ -55,6 +55,7 @@ public interface FireStationService {
 
   /**
    * Finds all fire stations in the repository.
+   *
    * @return a list of all fire stations
    */
   List<FireStation> findAll();

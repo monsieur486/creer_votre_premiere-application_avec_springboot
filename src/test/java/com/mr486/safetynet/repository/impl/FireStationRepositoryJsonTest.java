@@ -8,10 +8,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 class FireStationRepositoryJsonTest {
 
@@ -24,7 +26,7 @@ class FireStationRepositoryJsonTest {
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    List<FireStation> fireStations= new ArrayList<>();
+    List<FireStation> fireStations = new ArrayList<>();
     when(jsonService.loadFireStations()).thenReturn(fireStations);
   }
 

@@ -53,7 +53,6 @@ public class FireStationRepositoryJson implements FireStationRepository {
    * If it does not exist, it adds the new fire station to the list.
    *
    * @param fireStation the FireStation entity to save.
-   *
    * @return the saved FireStation entity.
    */
   @Override

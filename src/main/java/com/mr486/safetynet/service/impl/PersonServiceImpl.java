@@ -6,7 +6,6 @@ import com.mr486.safetynet.exception.EntityNotFoundException;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class PersonServiceImpl {
    * @throws EntityNotFoundException if the person does not exist.
    */
   public Person findByFirstNameAndLastName(String firstName, String lastName) {
-    if(!exists(firstName, lastName)) {
+    if (!exists(firstName, lastName)) {
       throw peronNotFoundException(firstName, lastName);
     }
 
