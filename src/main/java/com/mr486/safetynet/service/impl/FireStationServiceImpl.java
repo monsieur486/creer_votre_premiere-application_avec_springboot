@@ -7,7 +7,6 @@ import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.repository.FireStationRepository;
 import com.mr486.safetynet.service.FireStationService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class FireStationServiceImpl implements FireStationService {
 
   private final FireStationRepository fireStationRepository;
@@ -42,10 +40,8 @@ public class FireStationServiceImpl implements FireStationService {
    */
   public FireStation save(FireStation fireStation) {
     if (exists(fireStation.getAddress())) {
-      log.error("Attempt to save a duplicate fire station at address: {}", fireStation.getAddress());
       throw fireStationDuplicateException(fireStation.getAddress());
     }
-    log.info("Saving fire station at address: {}", fireStation.getAddress());
     return fireStationRepository.save(fireStation);
   }
 
@@ -56,10 +52,8 @@ public class FireStationServiceImpl implements FireStationService {
    */
   public void delete(String address) {
     if (!exists(address)) {
-      log.error("Attempt to delete a non-existing fire station at address: {}", address);
       throw fireStationNotFoundException(address);
     }
-    log.info("Deleting fire station at address: {}", address);
     fireStationRepository.delete(address);
   }
 
@@ -70,7 +64,6 @@ public class FireStationServiceImpl implements FireStationService {
    * @return a list of FireStation entities with the specified station number.
    */
   public List<FireStation> findByStationNumber(int stationNumber) {
-    log.info("Finding fire stations with station number: {}", stationNumber);
     return fireStationRepository.findByStationNumber(stationNumber);
   }
 
@@ -83,11 +76,9 @@ public class FireStationServiceImpl implements FireStationService {
    */
   public FireStation update(String address, FireStationDto fireStationDto) {
     if (!exists(address)) {
-      log.error("Attempt to update a non-existing fire station at address: {}", address);
       throw fireStationNotFoundException(address);
     }
     FireStation existingFireStation = findByAddress(address);
-    log.info("Updating fire station at address: {}", address);
     FireStation updatedFireStation = FireStation.builder()
             .address(existingFireStation.getAddress())
             .station(fireStationDto.getStation())
@@ -104,6 +95,7 @@ public class FireStationServiceImpl implements FireStationService {
     return fireStationRepository.findAll();
   }
 
+  // Private methods for internal use
 
   private boolean exists(String address) {
     return fireStationRepository.exists(address);

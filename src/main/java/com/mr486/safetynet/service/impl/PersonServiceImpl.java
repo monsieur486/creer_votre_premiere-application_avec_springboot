@@ -5,6 +5,7 @@ import com.mr486.safetynet.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.exception.EntityNotFoundException;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.PersonRepository;
+import com.mr486.safetynet.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +18,9 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class PersonServiceImpl {
+public class PersonServiceImpl implements PersonService {
 
   private final PersonRepository personRepository;
-
 
   /**
    * Finds a person by their first and last name.
