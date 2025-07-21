@@ -19,7 +19,7 @@ import java.util.Optional;
  **/
 @Repository
 @RequiredArgsConstructor
-public class FireStationRepositoryJson implements FireStationRepository {
+public class FireStationRepositoryImpl implements FireStationRepository {
 
   private final JsonService jsonService;
   private List<FireStation> fireStations = new ArrayList<>();

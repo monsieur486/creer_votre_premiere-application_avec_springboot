@@ -14,13 +14,13 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class PersonRepositoryJsonTest {
+class PersonRepositoryImplTest {
 
   @Mock
   private JsonService jsonService;
 
   @InjectMocks
-  private PersonRepositoryJson personRepositoryJson;
+  private PersonRepositoryImpl personRepositoryImpl;
 
   @BeforeEach
   void setUp() {
@@ -33,12 +33,12 @@ class PersonRepositoryJsonTest {
             "zip",
             "phone",
             "email");
-    personRepositoryJson.save(person);
+    personRepositoryImpl.save(person);
   }
 
   @Test
   void findByFirstNameAndLastName_shouldReturnPerson_whenExists() {
-    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("John", "Doe");
+    Optional<Person> result = personRepositoryImpl.findByFirstNameAndLastName("John", "Doe");
 
     assertTrue(result.isPresent());
     assertEquals("John", result.get().getFirstName());
@@ -47,7 +47,7 @@ class PersonRepositoryJsonTest {
 
   @Test
   void findByFirstNameAndLastName_shouldReturnEmpty_whenNotExists() {
-    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("Jane", "Smith");
+    Optional<Person> result = personRepositoryImpl.findByFirstNameAndLastName("Jane", "Smith");
     assertFalse(result.isPresent());
   }
 
@@ -61,9 +61,9 @@ class PersonRepositoryJsonTest {
             "zip2",
             "phone2",
             "email2");
-    personRepositoryJson.save(person2);
+    personRepositoryImpl.save(person2);
 
-    List<Person> result = personRepositoryJson.findAll();
+    List<Person> result = personRepositoryImpl.findAll();
 
     assertEquals(2, result.size());
   }
@@ -78,9 +78,9 @@ class PersonRepositoryJsonTest {
             "newZip",
             "phone",
             "email");
-    personRepositoryJson.save(updated);
+    personRepositoryImpl.save(updated);
 
-    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("John", "Doe");
+    Optional<Person> result = personRepositoryImpl.findByFirstNameAndLastName("John", "Doe");
     assertTrue(result.isPresent());
     assertEquals("newAddress", result.get().getAddress());
     assertEquals("newCity", result.get().getCity());
@@ -97,9 +97,9 @@ class PersonRepositoryJsonTest {
             "zip",
             "phone",
             "email");
-    personRepositoryJson.save(person2);
+    personRepositoryImpl.save(person2);
 
-    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("Alice", "Wonderland");
+    Optional<Person> result = personRepositoryImpl.findByFirstNameAndLastName("Alice", "Wonderland");
     assertTrue(result.isPresent());
     assertEquals("Alice", result.get().getFirstName());
     assertEquals("Wonderland", result.get().getLastName());
@@ -107,20 +107,20 @@ class PersonRepositoryJsonTest {
 
   @Test
   void delete_shouldRemovePerson_whenPersonExists() {
-    personRepositoryJson.delete("John", "Doe");
+    personRepositoryImpl.delete("John", "Doe");
 
-    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("John", "Doe");
+    Optional<Person> result = personRepositoryImpl.findByFirstNameAndLastName("John", "Doe");
     assertFalse(result.isPresent());
   }
 
   @Test
   void exists_shouldReturnTrue_whenPersonExists() {
-    assertTrue(personRepositoryJson.exists("John", "Doe"));
+    assertTrue(personRepositoryImpl.exists("John", "Doe"));
   }
 
   @Test
   void exists_shouldReturnFalse_whenPersonDoesNotExist() {
-    assertFalse(personRepositoryJson.exists("Non", "Existent"));
+    assertFalse(personRepositoryImpl.exists("Non", "Existent"));
   }
 
   @Test
@@ -141,16 +141,16 @@ class PersonRepositoryJsonTest {
             "zip",
             "phone",
             "email");
-    personRepositoryJson.save(person2);
-    personRepositoryJson.save(person3);
+    personRepositoryImpl.save(person2);
+    personRepositoryImpl.save(person3);
 
-    List<Person> result = personRepositoryJson.findByAddress("address");
+    List<Person> result = personRepositoryImpl.findByAddress("address");
     assertEquals(2, result.size());
   }
 
   @Test
   void findByAddress_shouldReturnEmptyList_whenNoPersonWithAddress() {
-    List<Person> result = personRepositoryJson.findByAddress("No Address");
+    List<Person> result = personRepositoryImpl.findByAddress("No Address");
     assertTrue(result.isEmpty());
   }
 
@@ -168,60 +168,60 @@ class PersonRepositoryJsonTest {
     );
     when(jsonService.loadPersons()).thenReturn(loaded);
 
-    personRepositoryJson.init();
+    personRepositoryImpl.init();
 
-    List<Person> result = personRepositoryJson.findAll();
+    List<Person> result = personRepositoryImpl.findAll();
     assertEquals(1, result.size());
     assertEquals("John", result.get(0).getFirstName());
   }
 
   @Test
   void findByFirstNameAndLastName_shouldReturnEmpty_whenFirstNameDoesNotMatch() {
-    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("Jane", "Doe");
+    Optional<Person> result = personRepositoryImpl.findByFirstNameAndLastName("Jane", "Doe");
     assertFalse(result.isPresent());
   }
 
   @Test
   void findByFirstNameAndLastName_shouldReturnEmpty_whenLastNameDoesNotMatch() {
-    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("John", "Smith");
+    Optional<Person> result = personRepositoryImpl.findByFirstNameAndLastName("John", "Smith");
     assertFalse(result.isPresent());
   }
 
   @Test
   void findByAddress_shouldReturnPerson_whenAddressCaseDiffers() {
-    List<Person> result = personRepositoryJson.findByAddress("AdDResS");
+    List<Person> result = personRepositoryImpl.findByAddress("AdDResS");
     assertEquals(1, result.size());
   }
 
   @Test
   void exists_shouldReturnTrue_whenCaseIsDifferent() {
-    assertTrue(personRepositoryJson.exists("joHN", "dOE"));
+    assertTrue(personRepositoryImpl.exists("joHN", "dOE"));
   }
 
   @Test
   void exists_shouldReturnTrue_shouldReturnEmpty_whenFirstNameDoesNotMatch() {
-    assertFalse(personRepositoryJson.exists("Jane", "Doe"));
+    assertFalse(personRepositoryImpl.exists("Jane", "Doe"));
   }
 
   @Test
   void exists_shouldReturnTrue_shouldReturnEmpty_whenLastNameDoesNotMatch() {
-    assertFalse(personRepositoryJson.exists("John", "Smith"));
+    assertFalse(personRepositoryImpl.exists("John", "Smith"));
   }
 
   @Test
   void delete_shouldReturnTrue_shouldReturnEmpty_whenFirstNameDoesNotMatch() {
-    personRepositoryJson.delete("Jane", "Doe");
+    personRepositoryImpl.delete("Jane", "Doe");
 
-    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("John", "Doe");
+    Optional<Person> result = personRepositoryImpl.findByFirstNameAndLastName("John", "Doe");
     assertTrue(result.isPresent());
     assertEquals("Doe", result.get().getLastName());
   }
 
   @Test
   void delete_shouldReturnEmpty_whenLastNameDoesNotMatch() {
-    personRepositoryJson.delete("John", "Smith");
+    personRepositoryImpl.delete("John", "Smith");
 
-    Optional<Person> result = personRepositoryJson.findByFirstNameAndLastName("John", "Doe");
+    Optional<Person> result = personRepositoryImpl.findByFirstNameAndLastName("John", "Doe");
     assertTrue(result.isPresent());
     assertEquals("Doe", result.get().getLastName());
   }

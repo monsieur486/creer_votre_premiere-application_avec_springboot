@@ -17,7 +17,7 @@ import java.util.Optional;
  */
 @Repository
 @RequiredArgsConstructor
-public class MedicalRecordRepositoryJson implements MedicalRecordRepository {
+public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
 
   private final JsonService jsonService;
 

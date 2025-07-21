@@ -13,13 +13,13 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FireStationRepositoryJsonTest {
+class FireStationRepositoryImplTest {
 
   @Mock
   private JsonService jsonService;
 
   @InjectMocks
-  private FireStationRepositoryJson fireStationRepositoryJson;
+  private FireStationRepositoryImpl fireStationRepositoryImpl;
 
   @BeforeEach
   void setUp() {
@@ -29,9 +29,9 @@ class FireStationRepositoryJsonTest {
   @Test
   void findByAddress_shouldReturnFireStation_whenAddressExists() {
     FireStation fireStation = new FireStation("123 Main St", 1);
-    fireStationRepositoryJson.save(fireStation);
+    fireStationRepositoryImpl.save(fireStation);
 
-    Optional<FireStation> result = fireStationRepositoryJson.findByAddress("123 Main St");
+    Optional<FireStation> result = fireStationRepositoryImpl.findByAddress("123 Main St");
 
     assertTrue(result.isPresent());
     assertEquals("123 Main St", result.get().getAddress());
@@ -40,14 +40,14 @@ class FireStationRepositoryJsonTest {
 
   @Test
   void findByAddress_shouldReturnEmpty_whenAddressDoesNotExist() {
-    Optional<FireStation> result = fireStationRepositoryJson.findByAddress("456 Oak St");
+    Optional<FireStation> result = fireStationRepositoryImpl.findByAddress("456 Oak St");
     assertTrue(result.isEmpty());
   }
 
   @Test
   void save_shouldAddNewFireStation_whenAddressDoesNotExist() {
     FireStation fireStation = new FireStation("123 Main St", 1);
-    FireStation result = fireStationRepositoryJson.save(fireStation);
+    FireStation result = fireStationRepositoryImpl.save(fireStation);
 
     assertEquals(fireStation, result);
   }
@@ -55,10 +55,10 @@ class FireStationRepositoryJsonTest {
   @Test
   void save_shouldUpdateExistingFireStation_whenAddressExists() {
     FireStation existingFireStation = new FireStation("123 Main St", 1);
-    fireStationRepositoryJson.save(existingFireStation);
+    fireStationRepositoryImpl.save(existingFireStation);
     FireStation updatedFireStation = new FireStation("123 Main St", 2);
 
-    FireStation result = fireStationRepositoryJson.save(updatedFireStation);
+    FireStation result = fireStationRepositoryImpl.save(updatedFireStation);
 
     assertEquals(updatedFireStation, result);
     assertEquals(2, existingFireStation.getStation());
@@ -67,21 +67,21 @@ class FireStationRepositoryJsonTest {
   @Test
   void delete_shouldRemoveFireStation_whenAddressExists() {
     FireStation fireStation = new FireStation("123 Main St", 1);
-    fireStationRepositoryJson.save(fireStation);
-    fireStationRepositoryJson.delete("123 Main St");
+    fireStationRepositoryImpl.save(fireStation);
+    fireStationRepositoryImpl.delete("123 Main St");
 
-    Optional<FireStation> result = fireStationRepositoryJson.findByAddress("123 Main St");
+    Optional<FireStation> result = fireStationRepositoryImpl.findByAddress("123 Main St");
     assertFalse(result.isPresent());
   }
 
   @Test
   void delete_shouldDoNothing_whenAddressDoesNotExist() {
     FireStation fireStation = new FireStation("123 Main St", 1);
-    fireStationRepositoryJson.save(fireStation);
+    fireStationRepositoryImpl.save(fireStation);
 
-    fireStationRepositoryJson.delete("456 Oak St");
+    fireStationRepositoryImpl.delete("456 Oak St");
 
-    Optional<FireStation> result = fireStationRepositoryJson.findByAddress("123 Main St");
+    Optional<FireStation> result = fireStationRepositoryImpl.findByAddress("123 Main St");
     assertTrue(result.isPresent());
   }
 
@@ -89,10 +89,10 @@ class FireStationRepositoryJsonTest {
   void findByStationNumber_shouldReturnFireStations_whenStationNumberExists() {
     FireStation fireStation1 = new FireStation("123 Main St", 1);
     FireStation fireStation2 = new FireStation("456 Oak St", 1);
-    fireStationRepositoryJson.save(fireStation1);
-    fireStationRepositoryJson.save(fireStation2);
+    fireStationRepositoryImpl.save(fireStation1);
+    fireStationRepositoryImpl.save(fireStation2);
 
-    List<FireStation> result = fireStationRepositoryJson.findByStationNumber(1);
+    List<FireStation> result = fireStationRepositoryImpl.findByStationNumber(1);
 
     assertEquals(2, result.size());
     assertTrue(result.contains(fireStation1));
@@ -101,7 +101,7 @@ class FireStationRepositoryJsonTest {
 
   @Test
   void findByStationNumber_shouldReturnEmptyList_whenStationNumberDoesNotExist() {
-    List<FireStation> result = fireStationRepositoryJson.findByStationNumber(2);
+    List<FireStation> result = fireStationRepositoryImpl.findByStationNumber(2);
 
     assertTrue(result.isEmpty());
   }
@@ -109,16 +109,16 @@ class FireStationRepositoryJsonTest {
   @Test
   void exists_shouldReturnTrue_whenFireStationExists() {
     FireStation fireStation = new FireStation("123 Main St", 1);
-    fireStationRepositoryJson.save(fireStation);
+    fireStationRepositoryImpl.save(fireStation);
 
-    boolean result = fireStationRepositoryJson.exists("123 Main St");
+    boolean result = fireStationRepositoryImpl.exists("123 Main St");
 
     assertTrue(result);
   }
 
   @Test
   void exists_shouldReturnFalse_whenFireStationDoesNotExist() {
-    boolean result = fireStationRepositoryJson.exists("456 Oak St");
+    boolean result = fireStationRepositoryImpl.exists("456 Oak St");
 
     assertFalse(result);
   }
@@ -127,10 +127,10 @@ class FireStationRepositoryJsonTest {
   void findAll_shouldReturnAllFireStations() {
     FireStation fireStation1 = new FireStation("123 Main St", 1);
     FireStation fireStation2 = new FireStation("456 Oak St", 2);
-    fireStationRepositoryJson.save(fireStation1);
-    fireStationRepositoryJson.save(fireStation2);
+    fireStationRepositoryImpl.save(fireStation1);
+    fireStationRepositoryImpl.save(fireStation2);
 
-    List<FireStation> result = fireStationRepositoryJson.findAll();
+    List<FireStation> result = fireStationRepositoryImpl.findAll();
 
     assertEquals(2, result.size());
     assertTrue(result.contains(fireStation1));
@@ -140,9 +140,9 @@ class FireStationRepositoryJsonTest {
   @Test
   void findByAddress_shouldReturnFireStation_whenCaseIsDifferent() {
     FireStation fireStation = new FireStation("123 Main St", 1);
-    fireStationRepositoryJson.save(fireStation);
+    fireStationRepositoryImpl.save(fireStation);
 
-    Optional<FireStation> result = fireStationRepositoryJson.findByAddress("123 MAIN st");
+    Optional<FireStation> result = fireStationRepositoryImpl.findByAddress("123 MAIN st");
 
     assertTrue(result.isPresent());
     assertEquals("123 Main St", result.get().getAddress());
@@ -152,9 +152,9 @@ class FireStationRepositoryJsonTest {
   @Test
   void findByStationNumber_shouldReturnEmptyList_whenNoFireStationWithNumber() {
     FireStation fireStation = new FireStation("123 Main St", 1);
-    fireStationRepositoryJson.save(fireStation);
+    fireStationRepositoryImpl.save(fireStation);
 
-    List<FireStation> result = fireStationRepositoryJson.findByStationNumber(99);
+    List<FireStation> result = fireStationRepositoryImpl.findByStationNumber(99);
 
     assertTrue(result.isEmpty());
   }

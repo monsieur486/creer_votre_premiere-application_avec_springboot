@@ -18,7 +18,7 @@ import java.util.Optional;
  */
 @Repository
 @RequiredArgsConstructor
-public class PersonRepositoryJson implements PersonRepository {
+public class PersonRepositoryImpl implements PersonRepository {
 
   private final JsonService jsonService;
   private List<Person> persons = new ArrayList<>();
