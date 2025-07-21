@@ -95,7 +95,7 @@ class PersonServiceImplTest {
   @Test
   void update_shouldUpdatePerson_whenExists() {
     Person existing = new Person("John", "Doe", "address", "city", "zip", "phone", "email");
-    PersonDto dto = new PersonDto( "newAddress", "newCity", "newZip", "newPhone", "newEmail");
+    PersonDto dto = new PersonDto("newAddress", "newCity", "newZip", "newPhone", "newEmail");
     Person updated = new Person("John", "Doe", "newAddress", "newCity", "newZip", "newPhone", "newEmail");
 
     when(personRepository.exists("John", "Doe")).thenReturn(true);

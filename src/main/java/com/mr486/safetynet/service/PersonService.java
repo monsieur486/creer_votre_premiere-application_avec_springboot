@@ -50,6 +50,7 @@ public interface PersonService {
 
   /**
    * Finds persons by their address.
+   *
    * @param address the address to search for persons.
    * @return a list of persons living at the specified address.
    */
@@ -57,6 +58,7 @@ public interface PersonService {
 
   /**
    * Finds all persons in the repository.
+   *
    * @return a list of all Person entities.
    */
   List<Person> findAll();
