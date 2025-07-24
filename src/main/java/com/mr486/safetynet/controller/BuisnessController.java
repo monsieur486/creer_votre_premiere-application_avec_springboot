@@ -2,7 +2,9 @@ package com.mr486.safetynet.controller;
 
 import com.mr486.safetynet.dto.response.ChildAlertResponseDto;
 import com.mr486.safetynet.dto.response.CoverageResponseDto;
+import com.mr486.safetynet.dto.response.FireResponseDto;
 import com.mr486.safetynet.service.buisness.ChildAlertService;
+import com.mr486.safetynet.service.buisness.FireService;
 import com.mr486.safetynet.service.buisness.FireStationConverageService;
 import com.mr486.safetynet.service.buisness.PhoneAlertService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class BuisnessController {
   private final FireStationConverageService fireStationConverageService;
   private final ChildAlertService childAlertService;
   private final PhoneAlertService phoneAlertService;
+  private final FireService fireService;
 
   /**
    * Retrieves coverage information for a specific fire station.
@@ -56,5 +59,16 @@ public class BuisnessController {
   @GetMapping(path = "/phoneAlert", produces = "application/json")
   public ResponseEntity<Set<String>> getPhonesByStation(@RequestParam int firestation) {
     return ResponseEntity.ok(phoneAlertService.getPhonesByStation(firestation));
+  }
+
+  /**
+   * Retrieves fire information for a specified address.
+   *
+   * @param address the address to search for fire information
+   * @return a ResponseEntity containing FireResponseDto with fire details
+   */
+  @GetMapping(path = "/fire", produces = "application/json")
+  public ResponseEntity<FireResponseDto> getFireInfo(@RequestParam String address) {
+    return ResponseEntity.ok(fireService.getFireInfoByAddress(address));
   }
 }
