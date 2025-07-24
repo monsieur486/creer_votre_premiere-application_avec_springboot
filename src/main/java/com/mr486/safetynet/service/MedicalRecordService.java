@@ -57,15 +57,16 @@ public interface MedicalRecordService {
 
   /**
    * Checks if a person is an adult based on their medical record.
-   *
+   * @param medicalRecord the medical record of the person.
    * @return true if the person is an adult, false otherwise.
    */
-  boolean isAdult(String birthdate);
+  boolean isAdult(MedicalRecord medicalRecord);
 
   /**
    * Calculates the age of a person based on their medical record.
+   * @param medicalRecord the medical record of the person.
    * @return the age of the person in years.
    */
-  int getAge(String birthdate);
+  int getAge(MedicalRecord medicalRecord);
 
 }

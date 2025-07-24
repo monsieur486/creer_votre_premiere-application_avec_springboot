@@ -121,25 +121,25 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 /**
    * Checks if a person is an adult based on their medical record.
    *
-   * @param birthdate the birthdate of the person in the format defined in AppConfiguation.DATE_FORMAT.
+   * @param medicalRecord the medical record of the person.
    * @return true if the person is an adult, false otherwise.
    */
-  public boolean isAdult(String birthdate) {
-    return getAge(birthdate) >= AppConfiguation.ADULT_AGE;
+  public boolean isAdult(MedicalRecord medicalRecord) {
+    return getAge(medicalRecord) >= AppConfiguation.ADULT_AGE;
   }
 
   /**
    * Calculates the age of a person based on their birthdate.
    *
-   * @param birthdate the birthdate of the person in the format defined in AppConfiguation.DATE_FORMAT.
+   * @param medicalRecord the medical record of the person containing the birthdate.
    * @return the age of the person in years.
    * @throws IllegalArgumentException if the birthdate format is invalid.
    */
-  public int getAge(String birthdate) {
+  public int getAge(MedicalRecord medicalRecord) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConfiguation.DATE_FORMAT);
     try {
       LocalDate now = LocalDate.now();
-      return Period.between(LocalDate.parse(birthdate, formatter), now).getYears();
+      return Period.between(LocalDate.parse(medicalRecord.getBirthdate(), formatter), now).getYears();
     } catch (DateTimeParseException e) {
       throw new IllegalArgumentException("Invalid birthdate format. Expected format is: " + AppConfiguation.DATE_FORMAT, e);
     }
