@@ -105,6 +105,16 @@ public class PersonServiceImpl implements PersonService {
     return personRepository.findAll();
   }
 
+  /**
+   * Finds persons by their last name.
+   *
+   * @param lastName the last name to search for.
+   * @return a list of persons with the specified last name.
+   */
+  public List<Person> findByLastName(String lastName) {
+    return personRepository.findByLastName(lastName);
+  }
+
   // Private methods for exception handling and existence checks
 
   private EntityAlreadyExistsException personDuplicateException(String firstName, String lastName) {

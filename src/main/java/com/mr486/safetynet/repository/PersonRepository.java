@@ -60,4 +60,12 @@ public interface PersonRepository {
    * @return a list of all persons
    */
   List<Person> findAll();
+
+  /**
+   * Finds persons by their last name.
+   *
+   * @param lastName the last name to search for
+   * @return a list of persons with the specified last name
+   */
+  List<Person> findByLastName(String lastName);
 }

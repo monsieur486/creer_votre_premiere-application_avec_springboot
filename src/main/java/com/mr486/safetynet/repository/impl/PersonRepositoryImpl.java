@@ -37,7 +37,6 @@ public class PersonRepositoryImpl implements PersonRepository {
    *
    * @return a list of all persons.
    */
-  @Override
   public Optional<Person> findByFirstNameAndLastName(String firstName, String lastName) {
     return persons.stream()
             .filter(person -> person.getFirstName().equalsIgnoreCase(firstName) &&
@@ -51,7 +50,6 @@ public class PersonRepositoryImpl implements PersonRepository {
    * @param person the person to save.
    * @return the saved Person entity.
    */
-  @Override
   public Person save(Person person) {
     // Check if a person with the same first and last name already exists
     Optional<Person> existingPerson = findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
@@ -75,7 +73,6 @@ public class PersonRepositoryImpl implements PersonRepository {
    * @param firstName the first name of the person to delete.
    * @param lastName  the last name of the person to delete.
    */
-  @Override
   public void delete(String firstName, String lastName) {
     persons.removeIf(person -> person.getFirstName().equalsIgnoreCase(firstName) &&
             person.getLastName().equalsIgnoreCase(lastName));
@@ -88,7 +85,6 @@ public class PersonRepositoryImpl implements PersonRepository {
    * @param lastName  the last name to check.
    * @return true if a person with the specified first and last name exists, false otherwise.
    */
-  @Override
   public boolean exists(String firstName, String lastName) {
     return persons.stream()
             .anyMatch(person -> person.getFirstName().equalsIgnoreCase(firstName) &&
@@ -101,7 +97,6 @@ public class PersonRepositoryImpl implements PersonRepository {
    * @param address the address to search for.
    * @return a list of Person entities with the specified address.
    */
-  @Override
   public List<Person> findByAddress(String address) {
     return persons.stream()
             .filter(person -> person.getAddress().equalsIgnoreCase(address))
@@ -113,8 +108,19 @@ public class PersonRepositoryImpl implements PersonRepository {
    *
    * @return a list of all persons.
    */
-  @Override
   public List<Person> findAll() {
     return new ArrayList<>(persons);
+  }
+
+  /**
+   * Finds persons by their last name.
+   *
+   * @param lastName the last name to search for.
+   * @return a list of persons with the specified last name.
+   */
+  public List<Person> findByLastName(String lastName) {
+    return persons.stream()
+            .filter(person -> person.getLastName().equalsIgnoreCase(lastName))
+            .toList();
   }
 }

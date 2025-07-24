@@ -62,4 +62,12 @@ public interface PersonService {
    * @return a list of all Person entities.
    */
   List<Person> findAll();
+
+  /**
+   * Finds persons by their last name.
+   *
+   * @param lastName the last name to search for persons.
+   * @return a list of persons with the specified last name.
+   */
+  List<Person> findByLastName(String lastName);
 }
