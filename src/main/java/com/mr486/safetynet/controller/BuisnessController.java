@@ -1,6 +1,8 @@
 package com.mr486.safetynet.controller;
 
+import com.mr486.safetynet.dto.response.ChildAlertResponseDto;
 import com.mr486.safetynet.dto.response.CoverageResponseDto;
+import com.mr486.safetynet.service.buisness.ChildAlertService;
 import com.mr486.safetynet.service.buisness.FireStationConverageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BuisnessController {
 
   private final FireStationConverageService fireStationConverageService;
+  private final ChildAlertService childAlertService;
 
   /**
    * Retrieves coverage information for a specific fire station.
@@ -27,5 +30,16 @@ public class BuisnessController {
       return ResponseEntity.notFound().build();
     }
     return ResponseEntity.ok(coverageResponse);
+  }
+
+  /**
+   * Retrieves a list of children living at a specified address.
+   *
+   * @param address the address to search for children
+   * @return a ResponseEntity containing ChildAlertResponseDto with children details
+   */
+  @GetMapping(path = "/childAlert", produces = "application/json")
+  public ResponseEntity<ChildAlertResponseDto> getChildrenByAddress(@RequestParam String address) {
+    return ResponseEntity.ok(childAlertService.getChildrenByAddress(address));
   }
 }
