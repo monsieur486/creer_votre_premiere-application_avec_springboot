@@ -115,6 +115,16 @@ public class PersonServiceImpl implements PersonService {
     return personRepository.findByLastName(lastName);
   }
 
+  /**
+   * Finds persons by their city.
+   *
+   * @param city the city to search for persons.
+   * @return a list of persons living in the specified city.
+   */
+  public List<Person> findByCity(String city) {
+    return personRepository.findByCity(city);
+  }
+
   // Private methods for exception handling and existence checks
 
   private EntityAlreadyExistsException personDuplicateException(String firstName, String lastName) {

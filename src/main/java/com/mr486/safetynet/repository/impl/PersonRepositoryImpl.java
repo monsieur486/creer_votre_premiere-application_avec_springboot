@@ -123,4 +123,16 @@ public class PersonRepositoryImpl implements PersonRepository {
             .filter(person -> person.getLastName().equalsIgnoreCase(lastName))
             .toList();
   }
+
+  /**
+   * Finds persons by their city.
+   *
+   * @param city the city to search for.
+   * @return a list of persons living in the specified city.
+   */
+  public List<Person> findByCity(String city) {
+    return persons.stream()
+            .filter(person -> person.getCity().equalsIgnoreCase(city))
+            .toList();
+  }
 }

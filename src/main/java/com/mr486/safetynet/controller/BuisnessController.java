@@ -30,6 +30,7 @@ public class BuisnessController {
   private final FireService fireService;
   private final FloodService floodService;
   private final PersonInfoService personInfoService;
+  private final CommunityEmailService communityEmailService;
 
   /**
    * Retrieves coverage information for a specific fire station.
@@ -99,5 +100,16 @@ public class BuisnessController {
   @GetMapping(value = "/persons", produces = "application/json")
   public ResponseEntity<List<PersonInfoDto>> getPersonInfo(@RequestParam String personInfolastName) {
     return ResponseEntity.ok(personInfoService.getPersonInfoByLastName(personInfolastName));
+  }
+
+  /**
+   * Retrieves a set of email addresses for residents in a specified city.
+   *
+   * @param city the city to search for email addresses
+   * @return a ResponseEntity containing a set of email addresses
+   */
+  @GetMapping(path = "/communityEmail", produces = "application/json")
+  public ResponseEntity<Set<String>> getCommunityEmails(@RequestParam String city) {
+    return ResponseEntity.ok(communityEmailService.getEmailsByCity(city));
   }
 }

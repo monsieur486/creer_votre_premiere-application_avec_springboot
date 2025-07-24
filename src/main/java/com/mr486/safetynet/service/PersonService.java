@@ -70,4 +70,12 @@ public interface PersonService {
    * @return a list of persons with the specified last name.
    */
   List<Person> findByLastName(String lastName);
+
+  /**
+   * Finds persons by their city.
+   *
+   * @param city the city to search for persons.
+   * @return a list of persons living in the specified city.
+   */
+  List<Person> findByCity(String city);
 }
