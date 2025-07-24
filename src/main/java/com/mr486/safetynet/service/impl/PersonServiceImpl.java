@@ -73,16 +73,16 @@ public class PersonServiceImpl implements PersonService {
     if (!exists(firstName, lastName)) {
       throw personNotFoundException(firstName, lastName);
     }
-    Person updatedPerson = new Person(
-            firstName,
-            lastName,
-            personDto.getAddress(),
-            personDto.getCity(),
-            personDto.getZip(),
-            personDto.getPhone(),
-            personDto.getEmail()
-    );
-    personRepository.delete(firstName, lastName);
+    Person existingPerson = findByFirstNameAndLastName(firstName, lastName);
+    Person updatedPerson = Person.builder()
+            .firstName(existingPerson.getFirstName())
+            .lastName(existingPerson.getLastName())
+            .address(personDto.getAddress())
+            .city(personDto.getCity())
+            .zip(personDto.getZip())
+            .phone(personDto.getPhone())
+            .email(personDto.getEmail())
+            .build();
     return personRepository.save(updatedPerson);
   }
 
