@@ -34,7 +34,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
    * @return a list of all medical records.
    */
   public List<MedicalRecord> findAll() {
-    return  medicalRecordRepository.findAll();
+    return medicalRecordRepository.findAll();
   }
 
   /**
@@ -54,12 +54,12 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
   /**
    * Saves a new medical record or updates an existing one.
    *
-   * @param firstName       the first name of the person.
-   * @param lastName        the last name of the person.
+   * @param firstName        the first name of the person.
+   * @param lastName         the last name of the person.
    * @param medicalRecordDto the DTO containing medical record data.
    * @return the saved or updated medical record.
    * @throws EntityAlreadyExistsException if a medical record already exists for the given names.
-   * @throws EntityNotFoundException if no person is found for the given names.
+   * @throws EntityNotFoundException      if no person is found for the given names.
    */
   public MedicalRecord save(String firstName, String lastName, MedicalRecordDto medicalRecordDto) {
     if (exists(firstName, lastName)) {
@@ -99,8 +99,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
   /**
    * Updates an existing medical record with new data.
    *
-   * @param firstName       the first name of the person.
-   * @param lastName        the last name of the person.
+   * @param firstName        the first name of the person.
+   * @param lastName         the last name of the person.
    * @param medicalRecordDto the DTO containing updated medical record data.
    * @return the updated medical record.
    * @throws EntityNotFoundException if no medical record is found for the given names.
@@ -118,7 +118,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     return medicalRecordRepository.save(medicalRecord);
   }
 
-/**
+  /**
    * Checks if a person is an adult based on their medical record.
    *
    * @param medicalRecord the medical record of the person.

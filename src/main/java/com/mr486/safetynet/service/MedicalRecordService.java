@@ -30,8 +30,8 @@ public interface MedicalRecordService {
   /**
    * Saves a new medical record or updates an existing one.
    *
-   * @param firstName       the first name of the person.
-   * @param lastName        the last name of the person.
+   * @param firstName        the first name of the person.
+   * @param lastName         the last name of the person.
    * @param medicalRecordDto the DTO containing medical record data.
    * @return the saved or updated medical record.
    */
@@ -48,8 +48,8 @@ public interface MedicalRecordService {
   /**
    * Updates an existing medical record with new data.
    *
-   * @param firstName       the first name of the person.
-   * @param lastName        the last name of the person.
+   * @param firstName        the first name of the person.
+   * @param lastName         the last name of the person.
    * @param medicalRecordDto the DTO containing updated medical record data.
    * @return the updated medical record.
    */
@@ -57,6 +57,7 @@ public interface MedicalRecordService {
 
   /**
    * Checks if a person is an adult based on their medical record.
+   *
    * @param medicalRecord the medical record of the person.
    * @return true if the person is an adult, false otherwise.
    */
@@ -64,6 +65,7 @@ public interface MedicalRecordService {
 
   /**
    * Calculates the age of a person based on their medical record.
+   *
    * @param medicalRecord the medical record of the person.
    * @return the age of the person in years.
    */
