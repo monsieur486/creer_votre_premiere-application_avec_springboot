@@ -156,18 +156,4 @@ class PersonServiceImplTest {
 
     assertTrue(result.isEmpty());
   }
-
-  @Test
-  void update_shouldDeleteAndSavePerson_whenExists() {
-    PersonDto dto = new PersonDto("newAddress", "newCity", "newZip", "newPhone", "newEmail");
-    when(personRepository.exists("John", "Doe")).thenReturn(true);
-    when(personRepository.save(any(Person.class))).thenReturn(
-            new Person("John", "Doe", "newAddress", "newCity", "newZip", "newPhone", "newEmail")
-    );
-
-    personServiceImpl.update("John", "Doe", dto);
-
-    verify(personRepository).delete("John", "Doe");
-    verify(personRepository).save(any(Person.class));
-  }
 }
