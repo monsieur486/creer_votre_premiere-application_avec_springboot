@@ -5,6 +5,7 @@ import com.mr486.safetynet.dto.request.MedicalRecordDto;
 import com.mr486.safetynet.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.exception.EntityNotFoundException;
 import com.mr486.safetynet.model.MedicalRecord;
+import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.PersonRepository;
 import com.mr486.safetynet.repository.impl.MedicalRecordRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -84,21 +85,15 @@ class MedicalRecordServiceImplTest {
 
     when(medicalRecordRepository.exists(firstName, lastName)).thenReturn(false);
     when(personRepository.exists(firstName, lastName)).thenReturn(true);
+    when(personRepository.findByFirstNameAndLastName(firstName, lastName))
+            .thenReturn(Optional.of(new Person()));
 
-    MedicalRecord expected = new MedicalRecord();
-    expected.setFirstName(firstName);
-    expected.setLastName(lastName);
-    expected.setBirthdate(medicalRecordDto.getBirthdate());
-    expected.setMedications(medications);
-    expected.setAllergies(allergies);
+    medicalRecordService.save(firstName, lastName, medicalRecordDto);
 
-    when(medicalRecordRepository.save(any(MedicalRecord.class))).thenReturn(expected);
+    verify(medicalRecordRepository, times(1)).save(any(MedicalRecord.class));
+    verify(personRepository, times(1)).exists(firstName, lastName);
+    verify(medicalRecordRepository, times(1)).exists(firstName, lastName);
 
-    MedicalRecord savedMedicalRecord = medicalRecordService.save(firstName, lastName, medicalRecordDto);
-    assertNotNull(savedMedicalRecord);
-    assertEquals(firstName, savedMedicalRecord.getFirstName());
-    assertEquals(lastName, savedMedicalRecord.getLastName());
-    assertEquals(medicalRecordDto.getBirthdate(), savedMedicalRecord.getBirthdate());
   }
 
   @Test
@@ -213,5 +208,16 @@ class MedicalRecordServiceImplTest {
     record.setBirthdate(LocalDate.now().minusYears(AppConfiguation.ADULT_AGE - 1)
             .format(DateTimeFormatter.ofPattern(AppConfiguation.DATE_FORMAT)));
     assertFalse(medicalRecordService.isAdult(record));
+  }
+
+  @Test
+  void testDelete_shouldThrowException_whenNotFound() {
+    String firstName = "Jane";
+    String lastName = "Smith";
+    when(medicalRecordRepository.exists(firstName, lastName)).thenReturn(false);
+
+    assertThrows(EntityNotFoundException.class, () ->
+            medicalRecordService.delete(firstName, lastName)
+    );
   }
 }
