@@ -26,15 +26,16 @@ class MedicalRecordRepositoryImplTest {
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    // Initialize with some test data
-    MedicalRecord medicalRecord = new MedicalRecord(
+    List<MedicalRecord> initialRecords = new ArrayList<>();
+    initialRecords.add(new MedicalRecord(
             "John",
             "Doe",
             "01/01/2000",
             new ArrayList<>(List.of("Aspirin")),
             new ArrayList<>(List.of("Peanuts"))
-    );
-    medicalRecordRepositoryImpl.save(medicalRecord);
+    ));
+    when(jsonService.loadMedicalRecords()).thenReturn(initialRecords);
+    medicalRecordRepositoryImpl.init();
   }
 
   @Test
@@ -73,6 +74,7 @@ class MedicalRecordRepositoryImplTest {
             new ArrayList<>(List.of("Paracetamol")),
             new ArrayList<>(List.of("Gluten"))
     );
+    medicalRecordRepositoryImpl.delete("John", "Doe");
     medicalRecordRepositoryImpl.save(updatedRecord);
     Optional<MedicalRecord> result = medicalRecordRepositoryImpl.findByFirstNameAndLastName("John", "Doe");
     assertTrue(result.isPresent());
@@ -110,5 +112,5 @@ class MedicalRecordRepositoryImplTest {
     assertEquals(1, all.size());
     assertEquals("John", all.get(0).getFirstName());
   }
-  
+
 }
