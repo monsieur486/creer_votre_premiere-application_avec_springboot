@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,15 +26,17 @@ class PersonRepositoryImplTest {
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    Person person = new Person(
+    List<Person> initialPersons = new ArrayList<>();
+    initialPersons.add(new Person(
             "John",
             "Doe",
             "address",
             "city",
             "zip",
             "phone",
-            "email");
-    personRepositoryImpl.save(person);
+            "email"));
+    when(jsonService.loadPersons()).thenReturn(initialPersons);
+    personRepositoryImpl.init();
   }
 
   @Test
