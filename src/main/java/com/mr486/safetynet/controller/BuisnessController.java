@@ -3,16 +3,15 @@ package com.mr486.safetynet.controller;
 import com.mr486.safetynet.dto.response.ChildAlertResponseDto;
 import com.mr486.safetynet.dto.response.CoverageResponseDto;
 import com.mr486.safetynet.dto.response.FireResponseDto;
-import com.mr486.safetynet.service.buisness.ChildAlertService;
-import com.mr486.safetynet.service.buisness.FireService;
-import com.mr486.safetynet.service.buisness.FireStationConverageService;
-import com.mr486.safetynet.service.buisness.PhoneAlertService;
+import com.mr486.safetynet.dto.response.FloodStationsResponseDto;
+import com.mr486.safetynet.service.buisness.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -23,6 +22,7 @@ public class BuisnessController {
   private final ChildAlertService childAlertService;
   private final PhoneAlertService phoneAlertService;
   private final FireService fireService;
+  private final FloodService floodService;
 
   /**
    * Retrieves coverage information for a specific fire station.
@@ -70,5 +70,16 @@ public class BuisnessController {
   @GetMapping(path = "/fire", produces = "application/json")
   public ResponseEntity<FireResponseDto> getFireInfo(@RequestParam String address) {
     return ResponseEntity.ok(fireService.getFireInfoByAddress(address));
+  }
+
+  /**
+   * Retrieves flood information for specified fire stations.
+   *
+   * @param stations a list of fire station numbers to retrieve flood information for
+   * @return a ResponseEntity containing FloodStationsResponseDto with flood details
+   */
+  @GetMapping(path = "/flood/stations", produces = "application/json")
+  public ResponseEntity<FloodStationsResponseDto> getFloodInfo(@RequestParam List<Integer> stations) {
+    return ResponseEntity.ok(floodService.getHouseholdsByStations(stations));
   }
 }
