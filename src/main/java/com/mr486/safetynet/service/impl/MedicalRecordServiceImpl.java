@@ -5,6 +5,7 @@ import com.mr486.safetynet.dto.request.MedicalRecordDto;
 import com.mr486.safetynet.exception.EntityAlreadyExistsException;
 import com.mr486.safetynet.exception.EntityNotFoundException;
 import com.mr486.safetynet.model.MedicalRecord;
+import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.repository.MedicalRecordRepository;
 import com.mr486.safetynet.repository.PersonRepository;
 import com.mr486.safetynet.service.MedicalRecordService;
@@ -70,9 +71,12 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
       throw personNotFoundException(firstName, lastName);
     }
 
+    Person person = personRepository.findByFirstNameAndLastName(firstName, lastName)
+            .orElseThrow(() -> personNotFoundException(firstName, lastName));
+
     MedicalRecord medicalRecord = new MedicalRecord();
-    medicalRecord.setFirstName(firstName);
-    medicalRecord.setLastName(lastName);
+    medicalRecord.setFirstName(person.getFirstName());
+    medicalRecord.setLastName(person.getLastName());
     medicalRecord.setBirthdate(medicalRecordDto.getBirthdate());
     medicalRecord.setMedications(medicalRecordDto.getMedications());
     medicalRecord.setAllergies(medicalRecordDto.getAllergies());
