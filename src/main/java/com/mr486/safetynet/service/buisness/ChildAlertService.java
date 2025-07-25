@@ -1,6 +1,6 @@
 package com.mr486.safetynet.service.buisness;
 
-import com.mr486.safetynet.dto.request.ChildAlertChildDto;
+import com.mr486.safetynet.dto.request.ChildAlertDto;
 import com.mr486.safetynet.dto.request.HouseholdMemberDto;
 import com.mr486.safetynet.dto.response.ChildAlertResponseDto;
 import com.mr486.safetynet.model.MedicalRecord;
@@ -33,7 +33,7 @@ public class ChildAlertService {
    */
   public ChildAlertResponseDto getChildrenByAddress(String address) {
     List<Person> persons = personService.findByAddress(address);
-    List<ChildAlertChildDto> children = new ArrayList<>();
+    List<ChildAlertDto> children = new ArrayList<>();
 
     for (Person person : persons) {
       MedicalRecord record = medicalRecordService.findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
@@ -46,7 +46,7 @@ public class ChildAlertService {
             .filter(p -> !p.getFirstName().equals(person.getFirstName()) || !p.getLastName().equals(person.getLastName()))
             .map(p -> new HouseholdMemberDto(p.getFirstName(), p.getLastName()))
             .collect(Collectors.toList());
-        children.add(new ChildAlertChildDto(person.getFirstName(), person.getLastName(), age, householdMembers));
+        children.add(new ChildAlertDto(person.getFirstName(), person.getLastName(), age, householdMembers));
       }
     }
     return new ChildAlertResponseDto(children);

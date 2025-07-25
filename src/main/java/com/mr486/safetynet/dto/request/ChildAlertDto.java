@@ -14,21 +14,21 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChildAlertChildDto {
+public class ChildAlertDto {
   private String firstName;
   private String lastName;
   private int age;
   private List<HouseholdMemberDto> householdMembers;
 
   /**
-   * Constructor to create a ChildAlertChildDto with first name, last name, and age.
+   * Constructor to create a ChildAlertDto with first name, last name, and age.
    * Initializes the household members list as an empty list.
    *
    * @param firstName the first name of the child
    * @param lastName  the last name of the child
    * @param age       the age of the child
    */
-  public ChildAlertChildDto(String firstName, String lastName, int age) {
+  public ChildAlertDto(String firstName, String lastName, int age) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;

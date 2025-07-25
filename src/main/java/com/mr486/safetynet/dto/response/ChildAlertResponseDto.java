@@ -1,9 +1,8 @@
 package com.mr486.safetynet.dto.response;
 
-import com.mr486.safetynet.dto.request.ChildAlertChildDto;
+import com.mr486.safetynet.dto.request.ChildAlertDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class ChildAlertResponseDto {
-  private List<ChildAlertChildDto> children;
+  private List<ChildAlertDto> children;
 
   /**
    * Constructor to create a ChildAlertResponseDto with an empty list of children.
