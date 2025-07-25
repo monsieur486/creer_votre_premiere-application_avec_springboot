@@ -5,6 +5,7 @@ import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.service.FireStationService;
 import com.mr486.safetynet.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PhoneAlertService {
 
   private final FireStationService fireStationService;
@@ -30,6 +32,7 @@ public class PhoneAlertService {
    * @return a set of phone numbers of persons covered by the fire station
    */
   public Set<String> getPhonesByStation(int stationNumber) {
+    log.debug("Retrieving phone numbers for fire station number: {}", stationNumber);
     List<String> addresses = fireStationService.findByStationNumber(stationNumber)
             .stream()
             .map(FireStation::getAddress)

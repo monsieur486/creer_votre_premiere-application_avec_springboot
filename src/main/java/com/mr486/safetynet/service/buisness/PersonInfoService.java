@@ -6,6 +6,7 @@ import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.service.MedicalRecordService;
 import com.mr486.safetynet.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PersonInfoService {
 
   private final PersonService personService;
@@ -31,6 +33,7 @@ public class PersonInfoService {
    */
   public List<PersonInfoDto> getPersonInfoByLastName(String lastName) {
     List<Person> persons = personService.findByLastName(lastName);
+    log.debug("Retrieving person info for last name: {}", lastName);
     return persons.stream().map(person -> {
       MedicalRecord record = medicalRecordService.findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
       int age = medicalRecordService.getAge(record);

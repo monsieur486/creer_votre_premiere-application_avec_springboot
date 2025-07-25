@@ -10,6 +10,7 @@ import com.mr486.safetynet.service.FireStationService;
 import com.mr486.safetynet.service.MedicalRecordService;
 import com.mr486.safetynet.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FireService {
 
   private final PersonService personService;
@@ -35,6 +37,7 @@ public class FireService {
    * @throws EntityNotFoundException if the fire station with the specified address is not found
    */
   public FireResponseDto getFireInfoByAddress(String address) {
+    log.debug("Retrieving fire information for address: {}", address);
     FireStation station = fireStationService.findByAddress(address);
     if (station == null) {
       throw new EntityNotFoundException("Fire station with address " + address + " not found");
@@ -43,6 +46,7 @@ public class FireService {
     List<Person> persons = personService.findByAddress(address);
 
     List<FirePersonDto> residents = persons.stream().map(person -> {
+      log.debug("Processing person: {} {}", person.getFirstName(), person.getLastName());
       MedicalRecord record = medicalRecordService.findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
       int age = medicalRecordService.getAge(record);
       return new FirePersonDto(

@@ -3,6 +3,7 @@ package com.mr486.safetynet.service.buisness;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CommunityEmailService {
 
   private final PersonService personService;
@@ -27,6 +29,7 @@ public class CommunityEmailService {
    */
   public Set<String> getEmailsByCity(String city) {
     List<Person> persons = personService.findByCity(city);
+    log.debug("Retrieving emails by city: {}", city);
     return persons.stream()
             .map(Person::getEmail)
             .collect(Collectors.toSet());

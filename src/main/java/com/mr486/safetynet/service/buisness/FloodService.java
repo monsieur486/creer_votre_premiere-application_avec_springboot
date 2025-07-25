@@ -10,6 +10,7 @@ import com.mr486.safetynet.service.FireStationService;
 import com.mr486.safetynet.service.MedicalRecordService;
 import com.mr486.safetynet.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FloodService {
 
   private final FireStationService fireStationService;
@@ -38,13 +40,16 @@ public class FloodService {
    * @throws IllegalArgumentException if any station number is invalid (null or negative)
    */
   public FloodStationsResponseDto getHouseholdsByStations(List<Integer> stationNumbers) {
+    log.debug("Retrieving households for fire stations: {}", stationNumbers);
     Set<String> addresses = new HashSet<>();
     for (Integer stationNumber : stationNumbers) {
+      log.debug("Processing fire station number: {}", stationNumber);
       if (stationNumber == null || stationNumber < 0) {
         throw new IllegalArgumentException("Invalid station number: " + stationNumber);
       }
       List<FireStation> fireStations = fireStationService.findByStationNumber(stationNumber);
       for (FireStation fireStation : fireStations) {
+        log.debug("Adding address from fire station: {}", fireStation.getAddress());
         addresses.add(fireStation.getAddress());
       }
 
@@ -52,6 +57,7 @@ public class FloodService {
 
     List<FloodHouseholdDto> households = new ArrayList<>();
     for (String address : addresses) {
+      log.debug("Retrieving persons for address: {}", address);
       List<Person> persons = personService.findByAddress(address);
       List<FloodPersonDto> residents = persons.stream().map(person -> {
         MedicalRecord record = medicalRecordService.findByFirstNameAndLastName(person.getFirstName(), person.getLastName());

@@ -8,6 +8,7 @@ import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.service.MedicalRecordService;
 import com.mr486.safetynet.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ChildAlertService {
 
   private final PersonService personService;
@@ -35,6 +37,7 @@ public class ChildAlertService {
     List<Person> persons = personService.findByAddress(address);
     List<ChildAlertDto> children = new ArrayList<>();
 
+    log.debug("Retrieving children for address: {}", address);
     for (Person person : persons) {
       MedicalRecord record = medicalRecordService.findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
       if (record == null) {
