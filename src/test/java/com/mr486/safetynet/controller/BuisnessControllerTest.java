@@ -1,7 +1,11 @@
 package com.mr486.safetynet.controller;
 
+import com.mr486.safetynet.dto.request.ChildAlertDto;
+import com.mr486.safetynet.dto.request.PersonInfoDto;
 import com.mr486.safetynet.dto.response.ChildAlertResponseDto;
 import com.mr486.safetynet.dto.response.CoverageResponseDto;
+import com.mr486.safetynet.dto.response.FireResponseDto;
+import com.mr486.safetynet.dto.response.FloodStationsResponseDto;
 import com.mr486.safetynet.service.buisness.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +14,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -47,24 +53,36 @@ class BuisnessControllerTest {
   }
 
   @Test
-  void getCoverageReturnsOkWithPersons() {
-    int stationNumber = 2;
-    CoverageResponseDto responseDto = new CoverageResponseDto();
-    responseDto.setPersons(List.of(new Object())); // Remplacez par un vrai DTO si besoin
-
-    when(fireStationConverageService.getCoverageByStationNumber(stationNumber)).thenReturn(responseDto);
-
+  void getCoverage() {
+    int stationNumber = 1;
+    CoverageResponseDto coverageResponse = new CoverageResponseDto();
+    coverageResponse.setAdultCount(1);
+    coverageResponse.setChildCount(0);
+    List<CoverageResponseDto.PersonInfo> persons = new ArrayList<>();
+    persons.add(new CoverageResponseDto.PersonInfo("John", "Doe", "123 Main St", "555-1234"));
+    coverageResponse.setPersons(persons);
+    // Mock the service call to return the coverage response
+    when(fireStationConverageService.getCoverageByStationNumber(stationNumber)).thenReturn(coverageResponse);
     ResponseEntity<CoverageResponseDto> response = buisnessControllerTest.getCoverage(stationNumber);
-
+    assertEquals(coverageResponse, response.getBody());
     assertEquals(200, response.getStatusCodeValue());
-    assertEquals(responseDto, response.getBody());
+  }
+
+  @Test
+  void getCoverageNotFound() {
+    int stationNumber = 1;
+    // Mock the service call to return an empty coverage response
+    when(fireStationConverageService.getCoverageByStationNumber(stationNumber)).thenReturn(new CoverageResponseDto());
+    ResponseEntity<CoverageResponseDto> response = buisnessControllerTest.getCoverage(stationNumber);
+    assertEquals(404, response.getStatusCodeValue());
   }
 
   @Test
   void getChildrenByAddressReturnsOkWithChildren() {
     String address = "1 rue de Paris";
     ChildAlertResponseDto responseDto = new ChildAlertResponseDto();
-    responseDto.setChildren(responseDto); // Remplacez par un vrai DTO si besoin
+    List<ChildAlertDto> children = List.of(new ChildAlertDto());
+    responseDto.setChildren(children);
 
     when(childAlertService.getChildrenByAddress(address)).thenReturn(responseDto);
 
@@ -77,7 +95,7 @@ class BuisnessControllerTest {
   @Test
   void getPhonesByStationReturnsOkWithPhones() {
     int firestation = 3;
-    var phones = Set.of("0102030405", "0607080910");
+    Set<String> phones = Set.of("0102030405", "0607080910");
 
     when(phoneAlertService.getPhonesByStation(firestation)).thenReturn(phones);
 
@@ -138,5 +156,8 @@ class BuisnessControllerTest {
     assertEquals(200, response.getStatusCodeValue());
     assertEquals(emails, response.getBody());
   }
+
+
+
 
 }
