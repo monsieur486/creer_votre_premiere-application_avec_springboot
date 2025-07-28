@@ -1,5 +1,5 @@
-// src/test/java/com/mr486/safetynet/service/buisness/ChildAlertServiceTest.java
-package com.mr486.safetynet.service.buisness;
+// src/test/java/com/mr486/safetynet/service/business/ChildAlertServiceTest.java
+package com.mr486.safetynet.service.business;
 
 import com.mr486.safetynet.dto.request.ChildAlertDto;
 import com.mr486.safetynet.dto.request.HouseholdMemberDto;

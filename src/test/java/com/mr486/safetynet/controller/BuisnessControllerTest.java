@@ -6,7 +6,7 @@ import com.mr486.safetynet.dto.response.ChildAlertResponseDto;
 import com.mr486.safetynet.dto.response.CoverageResponseDto;
 import com.mr486.safetynet.dto.response.FireResponseDto;
 import com.mr486.safetynet.dto.response.FloodStationsResponseDto;
-import com.mr486.safetynet.service.buisness.*;
+import com.mr486.safetynet.service.business.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

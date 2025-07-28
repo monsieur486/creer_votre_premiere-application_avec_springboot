@@ -1,4 +1,4 @@
-package com.mr486.safetynet.service.buisness;
+package com.mr486.safetynet.service.business;
 
 import com.mr486.safetynet.dto.request.PersonInfoDto;
 import com.mr486.safetynet.model.MedicalRecord;

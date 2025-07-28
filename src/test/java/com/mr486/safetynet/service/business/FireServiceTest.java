@@ -1,4 +1,4 @@
-package com.mr486.safetynet.service.buisness;
+package com.mr486.safetynet.service.business;
 
 import com.mr486.safetynet.dto.response.FireResponseDto;
 import com.mr486.safetynet.exception.EntityNotFoundException;

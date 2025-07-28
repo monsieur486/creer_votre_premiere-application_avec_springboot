@@ -5,7 +5,7 @@ import com.mr486.safetynet.dto.response.ChildAlertResponseDto;
 import com.mr486.safetynet.dto.response.CoverageResponseDto;
 import com.mr486.safetynet.dto.response.FireResponseDto;
 import com.mr486.safetynet.dto.response.FloodStationsResponseDto;
-import com.mr486.safetynet.service.buisness.*;
+import com.mr486.safetynet.service.business.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
