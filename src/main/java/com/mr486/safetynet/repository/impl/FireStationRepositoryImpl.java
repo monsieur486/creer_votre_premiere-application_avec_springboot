@@ -63,10 +63,12 @@ public class FireStationRepositoryImpl implements FireStationRepository {
     if (existingFireStation.isPresent()) {
       FireStation existing = existingFireStation.get();
       existing.setStation(fireStation.getStation());
+      jsonService.saveFireStations(fireStations);
       return existing;
     } else {
       // If it does not exist, add the new fire station
       fireStations.add(fireStation);
+      jsonService.saveFireStations(fireStations);
     }
     return fireStation;
   }
@@ -79,6 +81,7 @@ public class FireStationRepositoryImpl implements FireStationRepository {
   @Override
   public void delete(String address) {
     fireStations.removeIf(fireStation -> fireStation.getAddress().equalsIgnoreCase(address));
+    jsonService.saveFireStations(fireStations);
   }
 
   /**

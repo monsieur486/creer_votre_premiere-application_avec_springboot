@@ -67,6 +67,7 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
   @Override
   public MedicalRecord save(MedicalRecord medicalRecord) {
     medicalRecords.add(medicalRecord);
+    jsonService.saveMedicalRecords(medicalRecords);
     return medicalRecord;
   }
 
@@ -80,6 +81,7 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
   public void delete(String firstName, String lastName) {
     medicalRecords.removeIf(medicalRecord -> medicalRecord.getFirstName().equalsIgnoreCase(firstName) &&
             medicalRecord.getLastName().equalsIgnoreCase(lastName));
+    jsonService.saveMedicalRecords(medicalRecords);
   }
 
   /**

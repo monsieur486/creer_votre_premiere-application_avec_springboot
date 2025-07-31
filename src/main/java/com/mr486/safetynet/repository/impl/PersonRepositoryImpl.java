@@ -59,9 +59,11 @@ public class PersonRepositoryImpl implements PersonRepository {
       existing.setAddress(person.getAddress());
       existing.setCity(person.getCity());
       existing.setZip(person.getZip());
+      jsonService.savePersons(persons);
     } else {
       // If the person does not exist, add them to the list
       persons.add(person);
+      jsonService.savePersons(persons);
     }
     return person;
 
@@ -76,6 +78,7 @@ public class PersonRepositoryImpl implements PersonRepository {
   public void delete(String firstName, String lastName) {
     persons.removeIf(person -> person.getFirstName().equalsIgnoreCase(firstName) &&
             person.getLastName().equalsIgnoreCase(lastName));
+    jsonService.savePersons(persons);
   }
 
   /**

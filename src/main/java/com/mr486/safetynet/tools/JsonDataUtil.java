@@ -16,7 +16,7 @@ import java.io.File;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class JsonDataReader {
+public class JsonDataUtil {
 
   /**
    * The ObjectMapper instance used for JSON deserialization.
@@ -39,6 +39,22 @@ public class JsonDataReader {
       return mapper.readValue(file, DataBindingDto.class);
     } catch (Exception e) {
       throw new RuntimeException("❌ Error reading json file:" + dataFilePath + " message: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Saves the provided DataBindingDto object to a JSON file.
+   *
+   * @param data the DataBindingDto object to be saved
+   * @throws RuntimeException if an error occurs while writing to the file
+   */
+  public void saveData(DataBindingDto data) {
+    String dataFilePath = AppConfiguation.JSON_FILE_PATH;
+    try {
+      File file = new File(dataFilePath);
+      mapper.writerWithDefaultPrettyPrinter().writeValue(file, data);
+    } catch (Exception e) {
+      throw new RuntimeException("❌ Error writing json file:" + dataFilePath + " message: " + e.getMessage());
     }
   }
 }

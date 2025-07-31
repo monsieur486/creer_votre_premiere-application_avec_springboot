@@ -12,15 +12,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-class JsonDataReaderTest {
+class JsonDataUtilTest {
 
   private ObjectMapper objectMapper;
-  private JsonDataReader jsonDataReader;
+  private JsonDataUtil jsonDataUtil;
 
   @BeforeEach
   void setUp() {
     objectMapper = mock(ObjectMapper.class);
-    jsonDataReader = new JsonDataReader(objectMapper);
+    jsonDataUtil = new JsonDataUtil(objectMapper);
   }
 
   @Test
@@ -31,7 +31,7 @@ class JsonDataReaderTest {
     File file = new File(testPath);
     when(objectMapper.readValue(any(File.class), eq(DataBindingDto.class))).thenReturn(mockData);
 
-    DataBindingDto result = jsonDataReader.loadData();
+    DataBindingDto result = jsonDataUtil.loadData();
 
     assertNotNull(result);
     verify(objectMapper, times(1)).readValue(any(File.class), eq(DataBindingDto.class));
@@ -43,7 +43,7 @@ class JsonDataReaderTest {
             .thenThrow(new RuntimeException("Simulated read error"));
 
     RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-      jsonDataReader.loadData();
+      jsonDataUtil.loadData();
     });
 
     assertTrue(exception.getMessage().contains("Error reading json file"));

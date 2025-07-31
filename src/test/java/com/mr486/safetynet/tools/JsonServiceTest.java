@@ -18,14 +18,14 @@ import static org.mockito.Mockito.when;
 class JsonServiceTest {
 
   @Mock
-  private JsonDataReader jsonDataReader;
+  private JsonDataUtil jsonDataUtil;
 
   private JsonService jsonService;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    jsonService = new JsonService(jsonDataReader);
+    jsonService = new JsonService(jsonDataUtil);
   }
 
   @Test
@@ -34,7 +34,7 @@ class JsonServiceTest {
     DataBindingDto dataBindingDto = new DataBindingDto();
     dataBindingDto.setFirestations(fireStations);
 
-    when(jsonDataReader.loadData()).thenReturn(dataBindingDto);
+    when(jsonDataUtil.loadData()).thenReturn(dataBindingDto);
 
     List<FireStation> result = jsonService.loadFireStations();
 
@@ -48,7 +48,7 @@ class JsonServiceTest {
     DataBindingDto dataBindingDto = new DataBindingDto();
     dataBindingDto.setFirestations(null);
 
-    when(jsonDataReader.loadData()).thenReturn(dataBindingDto);
+    when(jsonDataUtil.loadData()).thenReturn(dataBindingDto);
 
     List<FireStation> result = jsonService.loadFireStations();
 
@@ -62,7 +62,7 @@ class JsonServiceTest {
     DataBindingDto dataBindingDto = new DataBindingDto();
     dataBindingDto.setPersons(persons);
 
-    when(jsonDataReader.loadData()).thenReturn(dataBindingDto);
+    when(jsonDataUtil.loadData()).thenReturn(dataBindingDto);
 
     List<Person> result = jsonService.loadPersons();
 
@@ -76,7 +76,7 @@ class JsonServiceTest {
     DataBindingDto dataBindingDto = new DataBindingDto();
     dataBindingDto.setPersons(null);
 
-    when(jsonDataReader.loadData()).thenReturn(dataBindingDto);
+    when(jsonDataUtil.loadData()).thenReturn(dataBindingDto);
 
     List<Person> result = jsonService.loadPersons();
 
@@ -100,7 +100,7 @@ class JsonServiceTest {
     DataBindingDto dataBindingDto = new DataBindingDto();
     dataBindingDto.setMedicalrecords(medicalRecords);
 
-    when(jsonDataReader.loadData()).thenReturn(dataBindingDto);
+    when(jsonDataUtil.loadData()).thenReturn(dataBindingDto);
 
     List<MedicalRecord> result = jsonService.loadMedicalRecords();
 
@@ -114,7 +114,7 @@ class JsonServiceTest {
     DataBindingDto dataBindingDto = new DataBindingDto();
     dataBindingDto.setMedicalrecords(null);
 
-    when(jsonDataReader.loadData()).thenReturn(dataBindingDto);
+    when(jsonDataUtil.loadData()).thenReturn(dataBindingDto);
 
     List<MedicalRecord> result = jsonService.loadMedicalRecords();
 
@@ -125,7 +125,7 @@ class JsonServiceTest {
 
   @Test
   void loadFireStations_shouldReturnEmptyList_whenExceptionIsThrown() {
-    when(jsonDataReader.loadData()).thenThrow(new RuntimeException("Erreur de lecture"));
+    when(jsonDataUtil.loadData()).thenThrow(new RuntimeException("Erreur de lecture"));
 
     List<FireStation> result = jsonService.loadFireStations();
 
@@ -135,7 +135,7 @@ class JsonServiceTest {
 
   @Test
   void loadPersons_shouldReturnEmptyList_whenExceptionIsThrown() {
-    when(jsonDataReader.loadData()).thenThrow(new RuntimeException("Erreur de lecture"));
+    when(jsonDataUtil.loadData()).thenThrow(new RuntimeException("Erreur de lecture"));
 
     List<Person> result = jsonService.loadPersons();
 
@@ -145,7 +145,7 @@ class JsonServiceTest {
 
   @Test
   void loadMedicalRecords_shouldReturnEmptyList_whenExceptionIsThrown() {
-    when(jsonDataReader.loadData()).thenThrow(new RuntimeException("Erreur de lecture"));
+    when(jsonDataUtil.loadData()).thenThrow(new RuntimeException("Erreur de lecture"));
 
     List<MedicalRecord> result = jsonService.loadMedicalRecords();
 
